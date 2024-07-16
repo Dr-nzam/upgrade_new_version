@@ -33,16 +33,24 @@ class _CoreState extends State<Core> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Up-Grade",
-          style: GoogleFonts.inter(
-              color: Colors.white, fontWeight: FontWeight.w500),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-        // automaticallyImplyLeading: false,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
+          title: Text(
+            "Up-Grade",
+            style: GoogleFonts.inter(
+                color: Colors.white, fontWeight: FontWeight.w500),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          // automaticallyImplyLeading: false,
+          iconTheme: IconThemeData(color: Colors.white),
+          actions: [
+            IconButton(
+              onPressed: () => Get.toNamed(AppRoute.addUser),
+              icon: CircleAvatar(
+                child: Icon(Icons.person),
+                backgroundColor: Colors.white,
+              ),
+            )
+          ]),
       drawer: Drawer(
           backgroundColor: Color.fromARGB(255, 216, 213, 213),
           child: Padding(
@@ -51,7 +59,7 @@ class _CoreState extends State<Core> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ListTile(
-                  onTap: ()=> Get.toNamed(AppRoute.addUser),
+                  onTap: () => Get.toNamed(AppRoute.addUser),
                   leading: Icon(Icons.person_add),
                   selectedColor: Colors.blue,
                   // selected: true,
@@ -82,6 +90,12 @@ class _CoreState extends State<Core> {
           )),
       body: Container(
         child: page.elementAt(_selectedIndex),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add, color: Colors.white,),
+        backgroundColor: Colors.blue,
+        mini: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 5,
