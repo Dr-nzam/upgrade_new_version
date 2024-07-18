@@ -10,6 +10,7 @@ import 'package:upgrade_employ/screens/login.dart';
 import 'package:upgrade_employ/screens/nouvelle_evaluation.dart';
 import 'package:upgrade_employ/screens/prochaine_evaluation.dart';
 import 'package:upgrade_employ/screens/splash.dart';
+import 'package:upgrade_employ/screens/statistique.dart';
 
 class AppPage{
   static  List<GetPage> page =[
@@ -21,5 +22,6 @@ class AppPage{
     GetPage(name: AppRoute.changePassword, page: ()=>ChangerMotDePasse()),
     GetPage(name: AppRoute.prochaineEvaluation, page: ()=>ProchaineEvaluation()),
     GetPage(name: AppRoute.detailEvaluation, page: ()=>DetailEvaluation()),
+    GetPage(name: AppRoute.statistique, page: ()=>Statistique()),
   ];
 }

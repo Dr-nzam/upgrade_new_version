@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:upgrade_employ/component/constante.dart';
-import 'package:upgrade_employ/component/historique.dart';
+import 'package:upgrade_employ/component/historique_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
 
@@ -151,11 +151,13 @@ class _HomeState extends State<Home> {
             date: "20/08/2024",
             nombreParticipant: 12,
             prochain: "HSE",
+            onPressed: () => Get.toNamed(AppRoute.detailEvaluation),
           ),
           HistoriqueWidget(
             date: "25/10/2024",
             nombreParticipant: 12,
             prochain: "Semestrielle",
+            onPressed: () => Get.toNamed(AppRoute.detailEvaluation),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,7 +167,9 @@ class _HomeState extends State<Home> {
                 style: GoogleFonts.inter(),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoute.statistique);
+                },
                 child: Text(
                   "Tout voir",
                   style: GoogleFonts.inter(
@@ -198,9 +202,9 @@ class _HomeState extends State<Home> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w800, fontSize: 10),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
                       Text('12/07/2024'),
                     ],
                   ),

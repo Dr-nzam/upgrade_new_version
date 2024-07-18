@@ -8,4 +8,5 @@ class AppRoute {
   static const changePassword = '/changePassword';
   static const prochaineEvaluation = '/prochaineEvaluation';
   static const detailEvaluation = '/detailEvaluation';
+  static const statistique = '/statistique';
 }

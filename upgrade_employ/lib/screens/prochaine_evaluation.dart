@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:upgrade_employ/component/historique.dart';
+import 'package:upgrade_employ/component/historique_widget.dart';
 
 class ProchaineEvaluation extends StatefulWidget {
   const ProchaineEvaluation({super.key});

@@ -5,15 +5,19 @@ class HistoriqueWidget extends StatelessWidget {
   String? date;
   int? nombreParticipant;
   String? prochain;
+  final VoidCallback? onPressed;
   HistoriqueWidget(
       {super.key,
       required this.date,
       this.nombreParticipant = 1,
-      this.prochain = ""});
+      this.prochain = "", 
+      this.onPressed
+      });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      
       leading: Icon(
         Icons.book,
         size: 30,
@@ -41,7 +45,8 @@ class HistoriqueWidget extends StatelessWidget {
         size: 30,
         color: Colors.blue,
       ),
+      onTap: onPressed,
     );
-    ;
+    
   }
 }
