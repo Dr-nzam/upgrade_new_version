@@ -28,17 +28,17 @@ class _HistoriqueState extends State<Historique> {
             HistoriqueWidget(
               date: "03/04/2024",
               nombreParticipant: 12,
-              prochain: "HSE",
+              // prochain: "HSE",
             ),
             HistoriqueWidget(
               date: "10/06/2024",
-              nombreParticipant: 12,
-              prochain: "Compétance",
+              nombreParticipant: 45,
+              // prochain: "Compétance",
             ),
             HistoriqueWidget(
               date: "12/07/2024",
-              nombreParticipant: 12,
-              prochain: "Discipline",
+              nombreParticipant: 18,
+              // prochain: "Discipline",
             ),
           ],
         ),

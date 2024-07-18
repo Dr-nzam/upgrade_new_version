@@ -12,9 +12,11 @@ class FormWidget extends StatelessWidget {
   final String? errorMessage;
   final TextEditingController? controller;
   final TextInputType keyboardType;
+  final double border;
 
   FormWidget({
     Key? key,
+    this.border=50,
     this.isPassword = false,
     this.placeholder = '',
     this.plein = '',
@@ -58,13 +60,13 @@ class FormWidget extends StatelessWidget {
           borderSide: BorderSide(
             color: couleurCurseur!,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(border)),
         ),
-        border: const OutlineInputBorder(
+        border:  OutlineInputBorder(
           borderSide: BorderSide(
             color: Color(0xff544F4D),
           ),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(border)),
         ),
       ),
       validator: (value) {

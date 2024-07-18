@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "programmez une évaluation",
+                "Programmez une évaluation",
                 style: GoogleFonts.inter(),
               ),
               TextButton(
@@ -129,13 +129,13 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "prochaine évaluations",
+                "Prochaine évaluations",
                 style: GoogleFonts.inter(
                     fontWeight: FontWeight.w600, fontSize: 16),
               ),
               TextButton(
                   onPressed: () {
-
+                    Get.toNamed(AppRoute.prochaineEvaluation);
                   },
                   child: Text(
                     "Tout voir",

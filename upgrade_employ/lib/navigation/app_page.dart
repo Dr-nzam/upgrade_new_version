@@ -5,8 +5,10 @@ import 'package:upgrade_employ/navigation/app_route.dart';
 import 'package:upgrade_employ/screens/add_user.dart';
 import 'package:upgrade_employ/screens/changer_mot_de_passe.dart';
 import 'package:upgrade_employ/screens/core.dart';
+import 'package:upgrade_employ/screens/detail_evaluation.dart';
 import 'package:upgrade_employ/screens/login.dart';
 import 'package:upgrade_employ/screens/nouvelle_evaluation.dart';
+import 'package:upgrade_employ/screens/prochaine_evaluation.dart';
 import 'package:upgrade_employ/screens/splash.dart';
 
 class AppPage{
@@ -17,5 +19,7 @@ class AppPage{
     GetPage(name: AppRoute.addUser, page: ()=>AddUser()),
     GetPage(name: AppRoute.nouvelleVersion, page: ()=>NouvelleEvaluation()),
     GetPage(name: AppRoute.changePassword, page: ()=>ChangerMotDePasse()),
+    GetPage(name: AppRoute.prochaineEvaluation, page: ()=>ProchaineEvaluation()),
+    GetPage(name: AppRoute.detailEvaluation, page: ()=>DetailEvaluation()),
   ];
 }

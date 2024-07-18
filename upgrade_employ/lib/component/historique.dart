@@ -39,6 +39,7 @@ class HistoriqueWidget extends StatelessWidget {
       trailing: Icon(
         Icons.arrow_forward_ios,
         size: 30,
+        color: Colors.blue,
       ),
     );
     ;

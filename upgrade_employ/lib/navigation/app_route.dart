@@ -6,4 +6,6 @@ class AppRoute {
   static const addUser = '/addUser';
   static const nouvelleVersion = '/nouvelleVersion';
   static const changePassword = '/changePassword';
+  static const prochaineEvaluation = '/prochaineEvaluation';
+  static const detailEvaluation = '/detailEvaluation';
 }
