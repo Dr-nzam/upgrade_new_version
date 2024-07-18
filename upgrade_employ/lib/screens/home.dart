@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
           Text(
             "Nous somme heureux de vous revoir",
             style: GoogleFonts.inter(
-              color: const Color.fromARGB(255, 146, 160, 153),
+              color: const Color(0xFF9E9E9E),
             ),
           ),
           SizedBox(height: 15),
@@ -147,12 +147,12 @@ class _HomeState extends State<Home> {
           const SizedBox(
             height: 5,
           ),
-          Historique(
+          HistoriqueWidget(
             date: "20/08/2024",
             nombreParticipant: 12,
             prochain: "HSE",
           ),
-          Historique(
+          HistoriqueWidget(
             date: "25/10/2024",
             nombreParticipant: 12,
             prochain: "Semestrielle",

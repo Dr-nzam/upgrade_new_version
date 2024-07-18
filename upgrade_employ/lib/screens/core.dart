@@ -92,7 +92,7 @@ class _CoreState extends State<Core> {
         child: page.elementAt(_selectedIndex),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {Get.toNamed(AppRoute.nouvelleVersion);},
         child: const Icon(Icons.add, color: Colors.white,),
         backgroundColor: Colors.blue,
         mini: true,

@@ -5,4 +5,5 @@ class AppRoute {
   static const core = '/core';
   static const addUser = '/addUser';
   static const nouvelleVersion = '/nouvelleVersion';
+  static const changePassword = '/changePassword';
 }

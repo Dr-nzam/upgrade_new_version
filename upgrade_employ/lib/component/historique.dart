@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Historique extends StatelessWidget {
+class HistoriqueWidget extends StatelessWidget {
   String? date;
   int? nombreParticipant;
   String? prochain;
-  Historique(
+  HistoriqueWidget(
       {super.key,
       required this.date,
       this.nombreParticipant = 1,
