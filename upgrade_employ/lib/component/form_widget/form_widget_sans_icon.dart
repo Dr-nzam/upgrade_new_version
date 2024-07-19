@@ -13,6 +13,7 @@ class FormWidgetSansIcon extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final VoidCallback? onTap;
+  final double border;
 
   FormWidgetSansIcon({
     Key? key,
@@ -25,6 +26,7 @@ class FormWidgetSansIcon extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     required this.prefixicon,
     this.onTap,
+    this.border=10,
     // this.suffixIcon = const IconButton(
     //   icon: Icon(null),
     //   onPressed: null,
@@ -56,13 +58,13 @@ class FormWidgetSansIcon extends StatelessWidget {
           borderSide: BorderSide(
             color: couleurCurseur!,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(border)),
         ),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(
+        border:  OutlineInputBorder(
+          borderSide: const BorderSide(
             color: Color(0xff544F4D),
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(border)),
         ),
       ),
       validator: (value) {

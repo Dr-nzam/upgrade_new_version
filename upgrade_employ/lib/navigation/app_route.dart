@@ -9,4 +9,6 @@ class AppRoute {
   static const prochaineEvaluation = '/prochaineEvaluation';
   static const detailEvaluation = '/detailEvaluation';
   static const statistique = '/statistique';
+  static const listeUtilisateur = '/listeUtilisateur';
+  static const detailUtilisateur = '/detailUtilisateur';
 }

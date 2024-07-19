@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:upgrade_employ/component/drawer_widget.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
 import 'package:upgrade_employ/screens/historique.dart';
 import 'package:upgrade_employ/screens/home.dart';
@@ -33,67 +34,37 @@ class _CoreState extends State<Core> {
     ];
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            "Up-Grade",
-            style: GoogleFonts.inter(
-                color: Colors.white, fontWeight: FontWeight.w500),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.blue,
-          // automaticallyImplyLeading: false,
-          iconTheme: IconThemeData(color: Colors.white),
-          actions: [
-            IconButton(
-              onPressed: () => Get.toNamed(AppRoute.addUser),
-              icon: CircleAvatar(
-                child: Icon(Icons.person),
-                backgroundColor: Colors.white,
-              ),
-            )
-          ]),
-      drawer: Drawer(
-          backgroundColor: Color.fromARGB(255, 216, 213, 213),
-          child: Padding(
-            padding: EdgeInsets.only(top: 55),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ListTile(
-                  onTap: () => Get.toNamed(AppRoute.addUser),
-                  leading: Icon(Icons.person_add),
-                  selectedColor: Colors.blue,
-                  // selected: true,
-                  title: Text(
-                    "Ajouter un utilisateur",
-                    style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w600, fontSize: 18),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.history),
-                  title: Text(
-                    "Historique des evaluation",
-                    style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w600, fontSize: 18),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.group),
-                  title: Text(
-                    "Liste du personnel",
-                    style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w600, fontSize: 18),
-                  ),
-                ),
-              ],
-            ),
-          )),
+        title: Text(
+          "Up-Grade",
+          style: GoogleFonts.inter(
+              color: Colors.white, fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        // automaticallyImplyLeading: false,
+        iconTheme: IconThemeData(color: Colors.white),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () => Get.toNamed(AppRoute.addUser),
+        //     icon: CircleAvatar(
+        //       child: Icon(Icons.person),
+        //       backgroundColor: Colors.white,
+        //     ),
+        //   )
+        // ],
+      ),
+      drawer: DrawerWidget(),
       body: Container(
         child: page.elementAt(_selectedIndex),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {Get.toNamed(AppRoute.nouvelleVersion);},
-        child: const Icon(Icons.add, color: Colors.white,),
+        onPressed: () {
+          Get.toNamed(AppRoute.nouvelleVersion);
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         backgroundColor: Colors.blue,
         mini: true,
       ),

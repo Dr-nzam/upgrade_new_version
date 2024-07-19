@@ -6,6 +6,8 @@ import 'package:upgrade_employ/screens/add_user.dart';
 import 'package:upgrade_employ/screens/changer_mot_de_passe.dart';
 import 'package:upgrade_employ/screens/core.dart';
 import 'package:upgrade_employ/screens/detail_evaluation.dart';
+import 'package:upgrade_employ/screens/detail_utilisateur.dart';
+import 'package:upgrade_employ/screens/liste_utilisateur.dart';
 import 'package:upgrade_employ/screens/login.dart';
 import 'package:upgrade_employ/screens/nouvelle_evaluation.dart';
 import 'package:upgrade_employ/screens/prochaine_evaluation.dart';
@@ -23,5 +25,7 @@ class AppPage{
     GetPage(name: AppRoute.prochaineEvaluation, page: ()=>ProchaineEvaluation()),
     GetPage(name: AppRoute.detailEvaluation, page: ()=>DetailEvaluation()),
     GetPage(name: AppRoute.statistique, page: ()=>Statistique()),
+    GetPage(name: AppRoute.listeUtilisateur, page: ()=>ListeUtilisateur()),
+    GetPage(name: AppRoute.detailUtilisateur, page: ()=>DetailUtilisateur()),
   ];
 }
