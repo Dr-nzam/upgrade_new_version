@@ -27,7 +27,7 @@ class _ListeUtilisateurState extends State<ListeUtilisateur> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () => Get.offNamed(AppRoute.core),
           icon: Icon(
             Icons.arrow_back_ios,
             color: Colors.white,

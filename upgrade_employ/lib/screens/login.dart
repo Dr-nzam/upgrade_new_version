@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
                       Response response = await controller.loginUserPost(
                           emailController.text, passwordController.text);
                       if (response.statusCode == 200) {
-                        print("tout c'est bien passe");
+                        // print("tout c'est bien passe");
                         Get.offAllNamed(AppRoute.core);
                       } else {
                         FlashToast.showFlashToast(

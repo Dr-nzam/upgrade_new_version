@@ -9,7 +9,6 @@ class AuthentificationController extends GetxController{
   final userModel = Get.put(UserModel());
   final AuthentificationService _provider = AuthentificationService();
   Future<Response> loginUserPost(String email, String password) async {
-    print("tooto");
     final SecureStorage secureStorage = SecureStorage();
     
     loading.value = true;
@@ -17,15 +16,21 @@ class AuthentificationController extends GetxController{
       'email': email,
       'password': password,
     });
+    print(email);
     
       if (!response.status.hasError) {
         userModel.token.value = response.body;
+        print("-*-**-*-**-*-*--*--*--**-----*-*-**-*------*-*-");
         loading.value = false;
         await secureStorage.setToken(userModel.token['access']);
         // String? a = await secureStorage.getFirstInstall();
+        print("-*-**-*-**-*-*--*--*--**-----*-*-**-*------*-*-");
         print(response.statusCode);
+        print(response.body);
         return response;
       } else {
+        print("-*-**-*-**-*-*--*--*--**-----*-*-**-*------*-*-");
+        print(response.body);
         loading.value = false;
         return response;
       }

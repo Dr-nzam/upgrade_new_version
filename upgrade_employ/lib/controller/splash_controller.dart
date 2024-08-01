@@ -38,6 +38,7 @@ class SplashController extends GetxController {
       if (response.statusCode == 200) {
         List don = [response.body];
         user.donnees.value = don;
+        user.token.value  = {"token":token};
         loading = false;
         print(user.donnees);
         print("toto");

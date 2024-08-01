@@ -1,3 +1,4 @@
+import 'package:flashtoast/flash_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,6 +6,8 @@ import 'package:upgrade_employ/component/buttom_widget/buttom_widget.dart';
 import 'package:upgrade_employ/component/constante.dart';
 import 'package:upgrade_employ/component/form_widget/form_widget_sans_icon.dart';
 import 'package:intl/intl.dart';
+import 'package:upgrade_employ/controller/evaluation_controller.dart';
+import 'package:upgrade_employ/data/model.dart';
 
 class NouvelleEvaluation extends StatefulWidget {
   const NouvelleEvaluation({super.key});
@@ -20,6 +23,8 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
   TextEditingController heureDebutController = TextEditingController();
   TextEditingController heureFinController = TextEditingController();
   TextEditingController departementController = TextEditingController();
+  EvaluationController controller = EvaluationController();
+  UserModel user = UserModel();
   final keyform = GlobalKey<FormState>();
   int? boutton;
 
@@ -321,7 +326,6 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                             Navigator.of(context).pop();
                           },
                           decoration: InputDecoration(
-                            
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                               horizontal: 10,
@@ -339,8 +343,35 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
               ButtonWidget(
                 text: "Programmer l'évaluation",
                 border: 10,
-                onPressed: () {
-                  print("toto");
+                onPressed: () async {
+                  if (keyform.currentState!.validate()) {
+                    DateFormat format = DateFormat(
+                        "dd/M/yyyy"); // Spécifiez le format de la date
+                    DateTime dateDebut = format.parse(dateDebutController.text);
+                    DateTime dateFin = format.parse(dateFinController.text);
+                    print("*-*-*--*-*-***--**-*-****-**-***--");
+                    final parts = heureDebutController.text.split(':');
+                    final hour = int.parse(parts[0]);
+                    final minute = int.parse(parts[1]);
+                   var  heure = TimeOfDay(hour: hour, minute: minute);
+                  //  print();
+                    controller.ajouterEvaluation(
+                        nomEvaluationController.text,
+                        dateDebutController.text,
+                        dateFinController.text,
+                        heureDebutController.text,
+                        heureFinController.text,
+                        1,
+                        user.token.toString());
+                  } else {
+                    FlashToast.showFlashToast(
+                      context: context,
+                      title: "Saisir incomplete",
+                      message: "Veillez remplir tout les champs",
+                      duration: 3,
+                      flashType: FlashType.error,
+                    );
+                  }
                 },
               )
             ],
