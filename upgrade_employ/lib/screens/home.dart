@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:upgrade_employ/component/constante.dart';
 import 'package:upgrade_employ/component/historique_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:upgrade_employ/controller/evaluation_controller.dart';
+import 'package:upgrade_employ/data/model.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
 
 final List<String> imgList = [
@@ -68,190 +70,246 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final EvaluationController controller = EvaluationController();
+  UserModel user = Get.find();
+  EvaluationModel evaluationModel = Get.find();
+  StatistiqueModel statistiqueModel = Get.find();
+  void first() async {
+      await controller.evaluationFuture(user.token['token']);
+      await controller.statistique(user.token['token']);
+      await controller.allDepartement(user.token['token']);
+    }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    first();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-        children: [
-          Text(
-            "Bonjour Admin",
-            style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-          Text(
-            "Nous somme heureux de vous revoir",
-            style: GoogleFonts.inter(
-              color: const Color(0xFF9E9E9E),
-            ),
-          ),
-          SizedBox(height: 15),
-          CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: true,
-              aspectRatio: 2.0,
-              enlargeCenterPage: true,
-            ),
-            items: imageSliders,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Obx(
+      () => RefreshIndicator(
+        onRefresh: () async {
+          await controller.evaluationFuture(user.token['token']);
+        },
+        color: Colors.blue,
+        child: Scaffold(
+          body: ListView(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
             children: [
               Text(
-                "Programmez une évaluation",
-                style: GoogleFonts.inter(),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(AppRoute.nouvelleVersion);
-                },
-                child: Row(
-                  children: [
-                    Text(
-                      "Ajouter",
-                      style: GoogleFonts.inter(
-                          color: Colors.blue, fontWeight: FontWeight.w800),
-                    ),
-                    const Icon(
-                      Icons.add,
-                      size: 15,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Prochaine évaluations",
+                "Bonjour ${user.donnees[0]["first_name"]}",
                 style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w600, fontSize: 16),
+                    fontSize: 18, fontWeight: FontWeight.w600),
               ),
-              TextButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoute.prochaineEvaluation);
-                  },
-                  child: Text(
-                    "Tout voir",
-                    style: GoogleFonts.inter(
-                        color: Colors.blue, fontWeight: FontWeight.w800),
-                  )),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          HistoriqueWidget(
-            date: "20/08/2024",
-            nombreParticipant: 12,
-            prochain: "HSE",
-            onPressed: () => Get.toNamed(AppRoute.detailEvaluation),
-          ),
-          HistoriqueWidget(
-            date: "25/10/2024",
-            nombreParticipant: 12,
-            prochain: "Semestrielle",
-            onPressed: () => Get.toNamed(AppRoute.detailEvaluation),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
               Text(
-                "Statistique",
-                style: GoogleFonts.inter(),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(AppRoute.statistique);
-                },
-                child: Text(
-                  "Tout voir",
-                  style: GoogleFonts.inter(
-                      color: Colors.blue, fontWeight: FontWeight.w800),
+                "Nous somme heureux de vous revoir",
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF9E9E9E),
                 ),
               ),
-            ],
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            "Statistique de l'évaluation passée",
-            style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+              SizedBox(height: 15),
+              CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  aspectRatio: 2.0,
+                  enlargeCenterPage: true,
+                ),
+                items: imageSliders,
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      Text(
-                        'Date',
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w800, fontSize: 10),
-                      ),
-                      // const SizedBox(
-                      //   height: 5,
-                      // ),
-                      Text('12/07/2024'),
-                    ],
+                  Text(
+                    "Programmez une évaluation",
+                    style: GoogleFonts.inter(),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        "petite note",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w800, fontSize: 10),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text("12"),
-                    ],
+                  TextButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoute.nouvelleVersion);
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          "Ajouter",
+                          style: GoogleFonts.inter(
+                              color: Colors.blue, fontWeight: FontWeight.w800),
+                        ),
+                        const Icon(
+                          Icons.add,
+                          size: 15,
+                          color: Colors.blue,
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        "moyenne",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w800, fontSize: 10),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text("15"),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "prémière note",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w800, fontSize: 10),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text("18")
-                    ],
-                  )
                 ],
               ),
+              const Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Prochaine évaluations",
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoute.prochaineEvaluation);
+                      },
+                      child: Text(
+                        "Tout voir",
+                        style: GoogleFonts.inter(
+                            color: Colors.blue, fontWeight: FontWeight.w800),
+                      )),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              controller.loading.value == true
+                  ? Center(
+                      child: CircularProgressIndicator.adaptive(
+                      backgroundColor: Colors.blue,
+                    ))
+                  : Container(
+                      height: MediaQuery.of(context).size.height * 0.18,
+                      child: ListView.builder(
+                        itemCount: evaluationModel.donnees.length,
+                        itemBuilder: (context, index) {
+                          return HistoriqueWidget(
+                            date: evaluationModel.donnees[index]['dateDebut'] ??
+                                'Date non disponible',
+                            nombreParticipant: 12,
+                            prochain: evaluationModel.donnees[index]['nom'] ??
+                                'Date non disponible',
+                            onPressed: () =>
+                                Get.toNamed(AppRoute.detailEvaluation,
+                                arguments: {
+                              "detailEvent": evaluationModel.donnees[index], 
+                              "id":1
+                              }
+                                ),
+                                
+                          );
+                        },
+                      ),
+                    ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Statistique",
+                    style: GoogleFonts.inter(),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoute.statistique, arguments: {
+                        "statistique":statistiqueModel.donnees
+                      });
+                    },
+                    child: Text(
+                      "Tout voir",
+                      style: GoogleFonts.inter(
+                          color: Colors.blue, fontWeight: FontWeight.w800),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Statistique de l'évaluation passée",
+                style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w600, fontSize: 16),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.18,
+                child: ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Date',
+                                  style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 10),
+                                ),
+                                // const SizedBox(
+                                //   height: 5,
+                                // ),
+
+                                Text('${statistiqueModel.donnees[0]['participations'][0]['evaluation']['dateDebut']?? ""}'),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "petite note",
+                                  style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 10),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text("${statistiqueModel.donnees[0]['petite_note']?? ""}"),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "Moyenne",
+                                  style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 10),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text("${statistiqueModel.donnees[0]['moyenne']?? ""}"),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "prémière note",
+                                  style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 10),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text("${statistiqueModel.donnees[0]['premiereNote']?? ""}")
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

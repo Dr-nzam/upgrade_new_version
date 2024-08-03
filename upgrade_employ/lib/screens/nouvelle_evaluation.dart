@@ -10,7 +10,7 @@ import 'package:upgrade_employ/controller/evaluation_controller.dart';
 import 'package:upgrade_employ/data/model.dart';
 
 class NouvelleEvaluation extends StatefulWidget {
-  const NouvelleEvaluation({super.key});
+  NouvelleEvaluation({super.key});
 
   @override
   State<NouvelleEvaluation> createState() => _NouvelleEvaluationState();
@@ -24,18 +24,13 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
   TextEditingController heureFinController = TextEditingController();
   TextEditingController departementController = TextEditingController();
   EvaluationController controller = EvaluationController();
-  UserModel user = UserModel();
+  UserModel user = Get.find();
+  DepartementModel departementlist = Get.find();
   final keyform = GlobalKey<FormState>();
   int? boutton;
-
+  List<String> _items = [];
   String? _selectedItem;
-  List<String> _items = [
-    'TRACKING',
-    'PROJECT-DEVELOPPEMENT',
-    'AUTOMATE-DESINGN',
-    'INFORMATIQUE',
-    'TOUT'
-  ];
+  int? idDepartement;
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +71,16 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
         });
       }
     }
+
+    listDepartement() async {
+      var response = await controller.allDepartement(user.token['token']);
+
+      _items = departementlist.donnees.value
+          .map((dep) => dep['nomDepartement'] as String)
+          .toList();
+    }
+
+    listDepartement();
 
     return Scaffold(
       appBar: AppBar(
@@ -298,7 +303,9 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                   Icons.desktop_mac_outlined,
                   color: Colors.blue,
                 ),
-                onTap: () {
+                onTap: () async {
+                  //  var response = await controller.allDepartement(user.token['token']);vfvf
+                  // print(response);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -310,7 +317,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                         ),
                         content: DropdownButtonFormField<String>(
                           // padding: EdgeInsetsDirectional.only(end: 2),
-                          // iconSize: 10,
+                          iconSize: 1,
                           value: _selectedItem,
                           items: _items.map((String item) {
                             return DropdownMenuItem<String>(
@@ -340,39 +347,82 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
               SizedBox(
                 height: 15,
               ),
-              ButtonWidget(
-                text: "Programmer l'évaluation",
-                border: 10,
-                onPressed: () async {
-                  if (keyform.currentState!.validate()) {
-                    DateFormat format = DateFormat(
-                        "dd/M/yyyy"); // Spécifiez le format de la date
-                    DateTime dateDebut = format.parse(dateDebutController.text);
-                    DateTime dateFin = format.parse(dateFinController.text);
-                    print("*-*-*--*-*-***--**-*-****-**-***--");
-                    final parts = heureDebutController.text.split(':');
-                    final hour = int.parse(parts[0]);
-                    final minute = int.parse(parts[1]);
-                   var  heure = TimeOfDay(hour: hour, minute: minute);
-                  //  print();
-                    controller.ajouterEvaluation(
-                        nomEvaluationController.text,
-                        dateDebutController.text,
-                        dateFinController.text,
-                        heureDebutController.text,
-                        heureFinController.text,
-                        1,
-                        user.token.toString());
-                  } else {
-                    FlashToast.showFlashToast(
-                      context: context,
-                      title: "Saisir incomplete",
-                      message: "Veillez remplir tout les champs",
-                      duration: 3,
-                      flashType: FlashType.error,
-                    );
-                  }
-                },
+              // Obx(() => Text("${controller.loading.value}")),
+              Obx(
+                () => ButtonWidget(
+                  colorButton: controller.loading.value
+                      ? const Color(0XFF7c7c7c)
+                      : Colors.blue,
+                  text: controller.loading.value
+                      ? "chargement"
+                      : "Programmer l'évaluation",
+                  border: 10,
+                  onPressed: controller.loading.value
+                      ? null
+                      : () async {
+                          if (keyform.currentState!.validate()) {
+                            var result =
+                                departementlist.donnees.value.firstWhere(
+                              (dept) =>
+                                  dept['nomDepartement'] ==
+                                  departementController.text,
+                              orElse: () =>
+                                  {'id': null, 'nomDepartement': 'Non trouvé'},
+                            );
+
+                            // Affichage du résultat
+                            if (result['id'] != null) {
+                              print(
+                                  'ID du département "${departementController.text}": ${result['id']}');
+                              idDepartement = result['id'];
+                            } else {
+                              print(
+                                  'Département "${departementController.text}" non trouvé.');
+                            }
+
+                            Response response =
+                                await controller.ajouterEvaluation(
+                                    nomEvaluationController.text,
+                                    dateDebutController.text,
+                                    dateFinController.text,
+                                    heureDebutController.text,
+                                    heureFinController.text,
+                                    idDepartement!,
+                                    user.token['token']);
+                            if (response.statusCode == 201) {
+                              FlashToast.showFlashToast(
+                                context: context,
+                                title: "Evaluation",
+                                message: "Evaluation crée avec succèss",
+                                duration: 3,
+                                flashType: FlashType.success,
+                              );
+                              nomEvaluationController.text='';
+                                    dateDebutController.text='';
+                                    dateFinController.text = '';
+                                    heureDebutController.text = '';
+                                    heureFinController.text = '';
+                                    departementController.text = '';
+                            } else {
+                              FlashToast.showFlashToast(
+                              context: context,
+                              title: "Evaluation",
+                              message: "Échec de création, veuillez réessayer plus tard ",
+                              duration: 4,
+                              flashType: FlashType.error,
+                            );
+                            }
+                          } else {
+                            FlashToast.showFlashToast(
+                              context: context,
+                              title: "Saisir incomplete",
+                              message: "Veillez remplir tout les champs",
+                              duration: 3,
+                              flashType: FlashType.error,
+                            );
+                          }
+                        },
+                ),
               )
             ],
           ),

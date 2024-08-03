@@ -88,7 +88,7 @@ class _AddUserState extends State<AddUser> {
           ),
           FormWidgetSansIcon(
             controller: nomController,
-            placeholder: 'Nike',
+            placeholder: 'Ninke',
             prefixicon: Icon(
               Icons.person,
               color: Colors.blue,
@@ -124,7 +124,7 @@ class _AddUserState extends State<AddUser> {
           ),
           FormWidgetSansIcon(
             controller: emailController,
-            placeholder: 'celinanike@elecit.com',
+            placeholder: 'celinaninke@elecit.com',
             prefixicon: Icon(
               Icons.email,
               color: Colors.blue,

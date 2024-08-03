@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upgrade_employ/data/model.dart';
@@ -6,9 +8,11 @@ import 'package:upgrade_employ/network/evaluation_service.dart';
 
 
 class EvaluationController extends GetxController {
-  String messageObs = ''.obs.value;
-  bool loading = false.obs.value;
-
+  var messageObs = ''.obs;
+  var loading = false.obs;
+  final departementModel = Get.put(DepartementModel());
+  final evaluationModel  = Get.put(EvaluationModel());
+  final statistiqueModel = Get.put(StatistiqueModel());
   final EvaluationServiceProvider _provider = EvaluationServiceProvider();
 
   Future<Response> ajouterEvaluation(
@@ -19,7 +23,7 @@ class EvaluationController extends GetxController {
       String heureFin,
       int departement,
       String token) async {
-    loading = true;
+    loading.value = true;
     var response = await _provider.ajouterEvaluationPost(
       {
         'nom': nom,
@@ -31,23 +35,87 @@ class EvaluationController extends GetxController {
       },
       token,
     );
-
     if (response.statusCode != null) {
       if (!response.status.hasError) {
-        // print('User registered');
         messageObs = response.body["message"];
-        loading = false;
+        loading.value = false;
         return response;
       } else {
-        messageObs = response.body["message"];
-        print(response.body);
-        loading = false;
+        messageObs.value = response.body["message"];
+        loading.value = false;
         return response;
       }
     } else {
-      messageObs = "Erreur de connexion au server*";
-      loading = false;
+      messageObs.value = "Erreur de connexion au server*";
+      loading.value = false;
       return response;
+    }
+  }
+
+
+  Future<void> allDepartement(String token) async {
+    loading.value = true;
+    //  final HomeProvider provider = HomeProvider();
+    var response = await _provider.listeDepartementGet(token);
+    if (!response.status.hasError) {
+      departementModel.donnees.value= response.body;  
+      loading.value = false;
+      print("########################################");
+      print(response.body);
+    } else {
+      loading.value = true;
+    }
+  }
+
+
+  Future<List<dynamic>> evaluationFuture(String token) async {
+    loading.value = true;
+    //  final HomeProvider provider = HomeProvider();
+    var response = await _provider.evaluationFutureGet(token);
+    if (!response.status.hasError) {
+      evaluationModel.donnees.value= response.body;  
+      loading.value = false;
+      // print("########################################");
+      // print(response.body);
+      return response.body;
+    } else {
+      loading.value = true;
+      return [{"message":"Error request"}];
+    }
+  }
+
+
+  Future<List<dynamic>> statistique(String token) async {
+    loading.value = true;
+   
+    var response = await _provider.statistiqueGet(token);
+    if (!response.status.hasError) {
+      statistiqueModel.donnees.value= response.body;  
+      loading.value = false;
+      // print("########################################");
+      // print(response.body);
+      return response.body;
+    } else {
+      loading.value = true;
+      return [{"message":"Error request"}];
+    }
+  }
+
+
+
+    Future<List<dynamic>> historique(String token) async {
+    loading.value = true;
+    //  final HomeProvider provider = HomeProvider();
+    var response = await _provider.historiqueGet(token);
+    if (!response.status.hasError) {
+      evaluationModel.historique.value= response.body;  
+      loading.value = false;
+      print("########################################");
+      print(response.body);
+      return response.body;
+    } else {
+      loading.value = true;
+      return [{"message":"Error request"}];
     }
   }
 }

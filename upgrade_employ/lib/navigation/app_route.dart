@@ -3,6 +3,8 @@ class AppRoute {
   static const login = '/login';
   static const signup = '/signup';
   static const core = '/core';
+  static const home = '/home';
+  static const historique = '/historique';
   static const addUser = '/addUser';
   static const nouvelleVersion = '/nouvelleVersion';
   static const changePassword = '/changePassword';

@@ -70,7 +70,7 @@ class _LoginState extends State<Login> {
                   text: "Connexion",
                   onPressed: () async {
                     if (keyform.currentState!.validate()) {
-                      Response response = await controller.loginUserPost(
+                      var response = await controller.loginUserPost(
                           emailController.text, passwordController.text);
                       if (response.statusCode == 200) {
                         // print("tout c'est bien passe");

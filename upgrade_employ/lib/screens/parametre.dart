@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:upgrade_employ/data/secure_stokage.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
 
 class Parametre extends StatefulWidget {
@@ -11,6 +12,7 @@ class Parametre extends StatefulWidget {
 }
 
 class _ParametreState extends State<Parametre> {
+  final SecureStorage secureStorage = SecureStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,7 +143,10 @@ class _ParametreState extends State<Parametre> {
                     alignment: Alignment.bottomLeft,
                     color: Color(0xFFDBDBE4),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        await secureStorage.setToken('');
+                        Get.offAllNamed(AppRoute.login);
+                      },
                       child: Text(
                         'Déconnexion',
                         style: GoogleFonts.inter(

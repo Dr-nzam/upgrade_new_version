@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:upgrade_employ/component/constante.dart';
 import 'package:upgrade_employ/component/form_widget/form_widget_sans_icon.dart';
+import 'package:upgrade_employ/controller/evaluation_controller.dart';
+import 'package:upgrade_employ/data/model.dart';
 
 class DetailEvaluation extends StatefulWidget {
   const DetailEvaluation({super.key});
@@ -12,20 +14,58 @@ class DetailEvaluation extends StatefulWidget {
 }
 
 class _DetailEvaluationState extends State<DetailEvaluation> {
+  DepartementModel departementModel = Get.find();
+  EvaluationController controller = EvaluationController();
+  UserModel user = Get.find();
+  var departementlist;
+  String? departementnom;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    void first() async {
+      await controller.allDepartement(user.token['token']);
+    }
+
+    first();
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    
+    // print('*-**-*--*-*-*-*--*-*-********');
+    // print(departementModel.donnees);
+    
+    var detail = Get.arguments['detailEvent'];
+    var id = Get.arguments['id'];
+
+    if (id == 1){
+      for (departementlist in departementModel.donnees) {
+      if (departementlist['id'] == detail['departement'] ) {
+       departementnom =  departementlist['nomDepartement'];
+
+      }
+    }
+    }else{ 
+    for (departementlist in departementModel.donnees) {
+      if (departementlist['id'] == detail['departement'] ) {
+       departementnom =  departementlist['nomDepartement'];
+
+      }
+    }}
     final TextEditingController nomEvaluationController =
-        TextEditingController(text: "Evaluation HSE");
+        TextEditingController(text: "${detail['nom']}");
     final TextEditingController dateDebutController =
-        TextEditingController(text: "12/7/2024");
+        TextEditingController(text: "${detail['dateDebut']}");
     final TextEditingController heureDebutController =
-        TextEditingController(text: "10:00");
+        TextEditingController(text: "${detail['heureDebut']}");
     final TextEditingController dateFinController =
-        TextEditingController(text: "12/7/2024");
+        TextEditingController(text: "${detail['dateFin']}");
     final TextEditingController heureFinController =
-        TextEditingController(text: "10:50");
+        TextEditingController(text: "${detail['heureFin']}");
     final TextEditingController departementController =
-        TextEditingController(text: "INFORMATIQUE");
+        TextEditingController(text: "${departementnom}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,

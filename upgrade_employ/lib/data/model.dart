@@ -7,4 +7,13 @@ class UserModel extends GetxService{
 
 class EvaluationModel extends GetxService{
   var donnees = [].obs;
+  var historique = [].obs;
+}
+
+class DepartementModel extends GetxService{
+  var donnees = [].obs;
+}
+
+class StatistiqueModel extends GetxService{
+  var donnees = [].obs;
 }

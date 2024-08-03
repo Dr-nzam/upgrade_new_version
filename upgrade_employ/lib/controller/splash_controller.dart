@@ -40,7 +40,7 @@ class SplashController extends GetxController {
         user.donnees.value = don;
         user.token.value  = {"token":token};
         loading = false;
-        print(user.donnees);
+        print(user.token);
         print("toto");
           Get.offNamed(AppRoute.core);
       }
