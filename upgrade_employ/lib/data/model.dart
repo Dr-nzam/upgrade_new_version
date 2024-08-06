@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 class UserModel extends GetxService{
   var token = {}.obs;
   var donnees = [].obs;
+  var listUser = [].obs;
 }
 
 class EvaluationModel extends GetxService{

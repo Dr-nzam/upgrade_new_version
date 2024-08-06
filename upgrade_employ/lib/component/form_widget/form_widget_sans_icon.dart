@@ -14,6 +14,7 @@ class FormWidgetSansIcon extends StatelessWidget {
   final TextInputType keyboardType;
   final VoidCallback? onTap;
   final double border;
+  Function(String)? callback;
 
   FormWidgetSansIcon({
     Key? key,
@@ -27,6 +28,7 @@ class FormWidgetSansIcon extends StatelessWidget {
     required this.prefixicon,
     this.onTap,
     this.border=10,
+    this.callback,
     // this.suffixIcon = const IconButton(
     //   icon: Icon(null),
     //   onPressed: null,
@@ -35,7 +37,7 @@ class FormWidgetSansIcon extends StatelessWidget {
     this.errorMessage = 'Veuillez remplir ce champ.',
   }) : super(key: key);
 
-  @override
+  @override      
   Widget build(BuildContext context) {
     return TextFormField(
       onTap: ()=>onTap!(),
@@ -75,6 +77,10 @@ class FormWidgetSansIcon extends StatelessWidget {
       },
       onChanged: (value) {
         // Handle changes to the text field's value
+        if (callback != null) {
+          callback!(value);
+          print(value);
+        }
       },
     );
   }

@@ -21,7 +21,7 @@ final VoidCallback? onPressed;
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.person_outline),
+            CircleAvatar(child: Icon(Icons.person_outline, color: Colors.white,), backgroundColor: Colors.blue,),
             Column(
               children: [
                 Text(

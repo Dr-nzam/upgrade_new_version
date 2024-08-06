@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:upgrade_employ/component/constante.dart';
 import 'package:upgrade_employ/component/historique_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:upgrade_employ/controller/authentification_controller.dart';
 import 'package:upgrade_employ/controller/evaluation_controller.dart';
 import 'package:upgrade_employ/data/model.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
@@ -71,6 +72,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final EvaluationController controller = EvaluationController();
+  final AuthentificationController controllerAuth = AuthentificationController();
   UserModel user = Get.find();
   EvaluationModel evaluationModel = Get.find();
   StatistiqueModel statistiqueModel = Get.find();
@@ -78,6 +80,7 @@ class _HomeState extends State<Home> {
       await controller.evaluationFuture(user.token['token']);
       await controller.statistique(user.token['token']);
       await controller.allDepartement(user.token['token']);
+      await controllerAuth.listUser(user.token['token']);
     }
   @override
   void initState() {
@@ -91,6 +94,7 @@ class _HomeState extends State<Home> {
       () => RefreshIndicator(
         onRefresh: () async {
           await controller.evaluationFuture(user.token['token']);
+          await controller.statistique(user.token['token']);
         },
         color: Colors.blue,
         child: Scaffold(

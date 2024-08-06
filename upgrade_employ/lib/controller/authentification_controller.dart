@@ -79,35 +79,34 @@ class AuthentificationController extends GetxController {
       return response;
     }
   }
-
-
     Future<Response> ajouterUtisateur(
       String nom,
-      String dateDebut,
-      String dateFin,
-      String heureDebut,
-      String heureFin,
+      String prenom,
+      String email,
+      String telephone,
       int departement,
+      String password,
       String token) async {
     loading.value = true;
     var response = await _provider.ajouterUserPost(
       {
-        'nom': nom,
-        'dateDebut': dateDebut,
-        'dateFin': dateFin,
-        'heureDebut': heureDebut,
-        'heureFin': heureFin,
-        'departement': departement
+        'last_name': nom,
+        'first_name': prenom,
+        'email': email,
+        'number_phone': telephone,
+        'departement': departement,
+        'password': password
       },
       token,
     );
     if (response.statusCode != null) {
       if (!response.status.hasError) {
-        messageObs = response.body["message"];
+        // messageObs = response.body["message"];
         loading.value = false;
         return response;
       } else {
-        messageObs = response.body["message"];
+        print(response.body);
+        messageObs = response.body["message"]['email'][0];
         loading.value = false;
         return response;
       }
@@ -116,5 +115,26 @@ class AuthentificationController extends GetxController {
       loading.value = false;
       return response;
     }
+  }
+
+    Future<Response> listUser(String token, {String search =''}) async {
+    loading.value = true;
+    var response = await _provider.listeUseGet(token, search: search);
+    if (!response.status.hasError) {
+      loading.value = false;
+      if (response.statusCode == 200) {
+        userModel.listUser.value = [response.body];
+        loading.value = false;
+        // print(response.body);
+        return response;
+      }
+    } else {
+      loading.value = false;
+      // messageObs = response.body["message"];
+      messageObs = '';
+      return response;
+    }
+    messageObs = "Erreur de connexion au server*";
+    return response;
   }
 }

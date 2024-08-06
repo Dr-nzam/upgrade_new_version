@@ -6,9 +6,6 @@ class AuthentificationService extends GetxController {
   Future<Response> loginUser(Map<String, dynamic> data) async {
     final response =
         await getConnect.post("${Constante.apiPath}account/login/", data);
-    print("${Constante.apiPath}account/login/");
-    print(data);
-    // print(response);
     return response;
   }
 
@@ -42,9 +39,9 @@ class AuthentificationService extends GetxController {
     return response;
   }
 
-  Future<Response> listeUseGet(String token) async {
+  Future<Response> listeUseGet(String token, {String? search}) async {
     final response = await getConnect
-        .get('${Constante.apiPath}account/liste-users/', headers: {
+        .get('${Constante.apiPath}account/liste-users/?search=$search', headers: {
       'Authorization': 'Token $token',
     });
     return response;
