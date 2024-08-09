@@ -72,22 +72,25 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final EvaluationController controller = EvaluationController();
-  final AuthentificationController controllerAuth = AuthentificationController();
+  final AuthentificationController controllerAuth =
+      AuthentificationController();
   UserModel user = Get.find();
   EvaluationModel evaluationModel = Get.find();
   StatistiqueModel statistiqueModel = Get.find();
   void first() async {
-      await controller.evaluationFuture(user.token['token']);
-      await controller.statistique(user.token['token']);
-      await controller.allDepartement(user.token['token']);
-      await controllerAuth.listUser(user.token['token']);
-    }
+    await controller.evaluationFuture(user.token['token']);
+    await controller.statistique(user.token['token']);
+    await controller.allDepartement(user.token['token']);
+    await controllerAuth.listUser(user.token['token']);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     first();
   }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -124,34 +127,37 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Programmez une évaluation",
-                    style: GoogleFonts.inter(),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoute.nouvelleVersion);
-                    },
-                    child: Row(
+              user.donnees[0]["is_admin"] == true
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Ajouter",
-                          style: GoogleFonts.inter(
-                              color: Colors.blue, fontWeight: FontWeight.w800),
+                          "Programmez une évaluation",
+                          style: GoogleFonts.inter(),
                         ),
-                        const Icon(
-                          Icons.add,
-                          size: 15,
-                          color: Colors.blue,
+                        TextButton(
+                          onPressed: () {
+                            Get.toNamed(AppRoute.nouvelleVersion);
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                "Ajouter",
+                                style: GoogleFonts.inter(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                              const Icon(
+                                Icons.add,
+                                size: 15,
+                                color: Colors.blue,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                ],
-              ),
+                    )
+                  : const SizedBox(),
               const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -162,14 +168,17 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                   TextButton(
-                      onPressed: () {
-                        Get.toNamed(AppRoute.prochaineEvaluation);
-                      },
-                      child: Text(
-                        "Tout voir",
-                        style: GoogleFonts.inter(
-                            color: Colors.blue, fontWeight: FontWeight.w800),
-                      )),
+                    onPressed: evaluationModel.donnees.isEmpty
+                        ? null
+                        : () {
+                            Get.toNamed(AppRoute.prochaineEvaluation);
+                          },
+                    child: Text(
+                      "Tout voir",
+                      style: GoogleFonts.inter(
+                          color: Colors.blue, fontWeight: FontWeight.w800),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -178,30 +187,42 @@ class _HomeState extends State<Home> {
               controller.loading.value == true
                   ? Center(
                       child: CircularProgressIndicator.adaptive(
-                      backgroundColor: Colors.blue,
-                    ))
-                  : Container(
-                      height: MediaQuery.of(context).size.height * 0.18,
-                      child: ListView.builder(
-                        itemCount: evaluationModel.donnees.length,
-                        itemBuilder: (context, index) {
-                          return HistoriqueWidget(
-                            date: evaluationModel.donnees[index]['dateDebut'] ??
-                                'Date non disponible',
-                            nombreParticipant: 12,
-                            prochain: evaluationModel.donnees[index]['nom'] ??
-                                'Date non disponible',
-                            onPressed: () =>
-                                Get.toNamed(AppRoute.detailEvaluation,
-                                arguments: {
-                              "detailEvent": evaluationModel.donnees[index], 
-                              "id":1
-                              }
-                                ),
-                                
-                          );
-                        },
+                        backgroundColor: Colors.blue,
                       ),
+                    )
+                  : Container(
+                      height: evaluationModel.donnees.length <= 1
+                          ? MediaQuery.of(context).size.height *
+                              0.1 // Hauteur réduite pour une seule donnée
+                          : MediaQuery.of(context).size.height * 0.18,
+                      child: evaluationModel.donnees.isEmpty
+                          ? Center(
+                              child: Text(
+                                "Vous n'avez aucune evaluation programmé",
+                                style: GoogleFonts.inter(),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: evaluationModel.donnees.length,
+                              itemBuilder: (context, index) {
+                                return HistoriqueWidget(
+                                  date: evaluationModel.donnees[index]
+                                          ['dateDebut'] ??
+                                      'Date non disponible',
+                                  nombreParticipant: 12,
+                                  prochain: evaluationModel.donnees[index]
+                                          ['nom'] ??
+                                      'Date non disponible',
+                                  onPressed: () => Get.toNamed(
+                                      AppRoute.detailEvaluation,
+                                      arguments: {
+                                        "detailEvent":
+                                            evaluationModel.donnees[index],
+                                        "id": 1
+                                      }),
+                                );
+                              },
+                            ),
                     ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -211,11 +232,13 @@ class _HomeState extends State<Home> {
                     style: GoogleFonts.inter(),
                   ),
                   TextButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoute.statistique, arguments: {
-                        "statistique":statistiqueModel.donnees
-                      });
-                    },
+                    onPressed: statistiqueModel.donnees.isEmpty
+                        ? null
+                        : () {
+                            Get.toNamed(AppRoute.statistique, arguments: {
+                              "statistique": statistiqueModel.donnees
+                            });
+                          },
                     child: Text(
                       "Tout voir",
                       style: GoogleFonts.inter(
@@ -237,79 +260,91 @@ class _HomeState extends State<Home> {
                 height: 8,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.18,
-                child: ListView.builder(
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  'Date',
-                                  style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 10),
-                                ),
-                                // const SizedBox(
-                                //   height: 5,
-                                // ),
-
-                                Text('${statistiqueModel.donnees[0]['participations'][0]['evaluation']['dateDebut']?? ""}'),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "petite note",
-                                  style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 10),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("${statistiqueModel.donnees[0]['petite_note']?? ""}"),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Moyenne",
-                                  style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 10),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("${statistiqueModel.donnees[0]['moyenne']?? ""}"),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "prémière note",
-                                  style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 10),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("${statistiqueModel.donnees[0]['premiereNote']?? ""}")
-                              ],
-                            )
-                          ],
+                height: MediaQuery.of(context).size.height * 0.09,
+                child: statistiqueModel.donnees.isEmpty
+                    ? Center(
+                        child: Text(
+                          "Vous n'avez encore passé aucune évaluation",
+                          style: GoogleFonts.inter(),
                         ),
-                      ],
-                    );
-                  },
-                ),
+                      )
+                    : ListView.builder(
+                        itemCount: statistiqueModel.donnees.isEmpty ? 0 : 1,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Date',
+                                        style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 10),
+                                      ),
+                                      // const SizedBox(
+                                      //   height: 5,
+                                      // ),
+
+                                      Text(
+                                          '${statistiqueModel.donnees[0]['participations'][0]['evaluation']['dateDebut'] ?? ""}'),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "petite note",
+                                        style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 10),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                          "${statistiqueModel.donnees[0]['petite_note'] ?? ""}"),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "Moyenne",
+                                        style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 10),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                          "${statistiqueModel.donnees[0]['moyenne'] ?? ""}"),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "prémière note",
+                                        style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 10),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                          "${statistiqueModel.donnees[0]['premiereNote'] ?? ""}")
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      ),
               ),
             ],
           ),

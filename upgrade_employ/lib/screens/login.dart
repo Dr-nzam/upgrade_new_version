@@ -75,11 +75,19 @@ class _LoginState extends State<Login> {
                       if (response.statusCode == 200) {
                         // print("tout c'est bien passe");
                         Get.offAllNamed(AppRoute.core);
-                      } else {
+                      } else if(response.statusCode != null) {
                         FlashToast.showFlashToast(
                           context: context,
                           title: "Erreur de connexion.",
                           message: "Mot de passe ou email incorrect.",
+                          duration: 4,
+                          flashType: FlashType.error,
+                        );
+                      }else{
+                        FlashToast.showFlashToast(
+                          context: context,
+                          title: "Erreur de connexion.",
+                          message: "Erreur de connexion au server.",
                           duration: 4,
                           flashType: FlashType.error,
                         );

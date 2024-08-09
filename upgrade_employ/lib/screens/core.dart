@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:upgrade_employ/component/drawer_widget.dart';
+import 'package:upgrade_employ/data/model.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
 import 'package:upgrade_employ/screens/historique.dart';
 import 'package:upgrade_employ/screens/home.dart';
@@ -25,6 +26,7 @@ class _CoreState extends State<Core> {
 
   Color selectCouleur = const Color(0xFF5669FF);
   Color unselectCouleur = const Color(0xFFA0A0A0);
+  UserModel user = Get.find();
   @override
   Widget build(BuildContext context) {
     List page = [
@@ -41,23 +43,15 @@ class _CoreState extends State<Core> {
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: user.donnees[0]["is_admin"] == true?true:false,
         iconTheme: IconThemeData(color: Colors.white),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () => Get.toNamed(AppRoute.addUser),
-        //     icon: CircleAvatar(
-        //       child: Icon(Icons.person),
-        //       backgroundColor: Colors.white,
-        //     ),
-        //   )
-        // ],
       ),
-      drawer: DrawerWidget(),
+      
+      drawer: user.donnees[0]["is_admin"] == true? DrawerWidget():null,
       body: Container(
         child: page.elementAt(_selectedIndex),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: user.donnees[0]["is_admin"] == true?FloatingActionButton(
         onPressed: () {
           Get.toNamed(AppRoute.nouvelleVersion);
         },
@@ -67,7 +61,7 @@ class _CoreState extends State<Core> {
         ),
         backgroundColor: Colors.blue,
         mini: true,
-      ),
+      ):null,
       bottomNavigationBar: BottomNavigationBar(
         elevation: 5,
         type: BottomNavigationBarType.fixed,

@@ -15,6 +15,7 @@ import 'package:upgrade_employ/screens/liste_utilisateur.dart';
 import 'package:upgrade_employ/screens/login.dart';
 import 'package:upgrade_employ/screens/nouvelle_evaluation.dart';
 import 'package:upgrade_employ/screens/prochaine_evaluation.dart';
+import 'package:upgrade_employ/screens/question.dart';
 import 'package:upgrade_employ/screens/splash.dart';
 import 'package:upgrade_employ/screens/statistique.dart';
 
@@ -33,5 +34,6 @@ class AppPage{
     GetPage(name: AppRoute.statistique, page: ()=>Statistique()),
     GetPage(name: AppRoute.listeUtilisateur, page: ()=>ListeUtilisateur(),binding: AuthentificationBinding()),
     GetPage(name: AppRoute.detailUtilisateur, page: ()=>DetailUtilisateur()),
+    GetPage(name: AppRoute.question, page: ()=>Question())
   ];
 }

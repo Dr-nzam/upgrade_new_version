@@ -13,4 +13,5 @@ class AppRoute {
   static const statistique = '/statistique';
   static const listeUtilisateur = '/listeUtilisateur';
   static const detailUtilisateur = '/detailUtilisateur';
+  static const question = '/question';
 }

@@ -79,7 +79,6 @@ class FormWidgetSansIcon extends StatelessWidget {
         // Handle changes to the text field's value
         if (callback != null) {
           callback!(value);
-          print(value);
         }
       },
     );

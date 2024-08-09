@@ -1,9 +1,9 @@
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upgrade_employ/data/model.dart';
-import 'package:upgrade_employ/data/secure_stokage.dart';
+// import 'package:upgrade_employ/data/secure_stokage.dart';
 import 'package:upgrade_employ/network/evaluation_service.dart';
 
 
@@ -37,7 +37,7 @@ class EvaluationController extends GetxController {
     );
     if (response.statusCode != null) {
       if (!response.status.hasError) {
-        messageObs = response.body["message"];
+        messageObs.value = response.body["message"];
         loading.value = false;
         return response;
       } else {
@@ -60,8 +60,8 @@ class EvaluationController extends GetxController {
     if (!response.status.hasError) {
       departementModel.donnees.value= response.body;  
       loading.value = false;
-      print("########################################");
-      print(response.body);
+      // print("########################################");
+      // print(response.body);
     } else {
       loading.value = true;
     }
@@ -110,8 +110,8 @@ class EvaluationController extends GetxController {
     if (!response.status.hasError) {
       evaluationModel.historique.value= response.body;  
       loading.value = false;
-      print("########################################");
-      print(response.body);
+      // print("########################################");
+      // print(response.body);
       return response.body;
     } else {
       loading.value = true;

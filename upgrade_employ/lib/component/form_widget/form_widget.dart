@@ -63,7 +63,7 @@ class FormWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(border)),
         ),
         border:  OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Color(0xff544F4D),
           ),
           borderRadius: BorderRadius.all(Radius.circular(border)),

@@ -11,13 +11,13 @@ class DrawerWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 96.5),
       child: Drawer(
-        backgroundColor: Color.fromARGB(255, 216, 213, 213),
+        backgroundColor: const Color.fromARGB(255, 216, 213, 213),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ListTile(
               onTap: () => Get.toNamed(AppRoute.addUser),
-              leading: Icon(Icons.person_add),
+              leading: const Icon(Icons.person_add),
               selectedColor: Colors.blue,
               // selected: true,
               title: Text(
@@ -29,7 +29,7 @@ class DrawerWidget extends StatelessWidget {
             
             ListTile(
               onTap: () => Get.toNamed(AppRoute.listeUtilisateur),
-              leading: Icon(Icons.group),
+              leading: const Icon(Icons.group),
               title: Text(
                 "Liste du personnel",
                 style: GoogleFonts.inter(

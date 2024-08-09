@@ -354,7 +354,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                       ? const Color(0XFF7c7c7c)
                       : Colors.blue,
                   text: controller.loading.value
-                      ? "chargement"
+                      ? "chargement..."
                       : "Programmer l'évaluation",
                   border: 10,
                   onPressed: controller.loading.value
@@ -362,7 +362,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                       : () async {
                           if (keyform.currentState!.validate()) {
                             var result =
-                                departementlist.donnees.value.firstWhere(
+                                departementlist.donnees.firstWhere(
                               (dept) =>
                                   dept['nomDepartement'] ==
                                   departementController.text,

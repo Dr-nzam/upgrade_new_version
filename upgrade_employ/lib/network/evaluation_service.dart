@@ -11,6 +11,7 @@ class EvaluationServiceProvider extends GetxController {
           'Authorization': 'Token $token',
         },
         data);
+        print(response.body);
     return response;
   }
 

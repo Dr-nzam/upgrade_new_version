@@ -17,47 +17,45 @@ final VoidCallback? onPressed;
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CircleAvatar(child: Icon(Icons.person_outline, color: Colors.white,), backgroundColor: Colors.blue,),
-            Column(
-              children: [
-                Text(
-                  nom!,
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w700, fontSize: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const CircleAvatar(backgroundColor: Colors.blue,child: Icon(Icons.person_outline, color: Colors.white,),),
+          Column(
+            children: [
+              Text(
+                nom!,
+                style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w700, fontSize: 16),
+              ),
+              Text(
+                departement!,
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10,
+                  color: const Color(0xFF9E9E9E),
                 ),
-                Text(
-                  departement!,
-                  style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 10,
-                    color: Color(0xFF9E9E9E),
-                  ),
-                )
-              ],
-            ),
-            Column(
-              children: [
-                Text(
-                  "Derniere evaluation",
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w700, fontSize: 13),
+              )
+            ],
+          ),
+          Column(
+            children: [
+              Text(
+                "Derniere evaluation",
+                style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w700, fontSize: 13),
+              ),
+              Text(
+                "$note",
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10,
+                  color: const Color(0xFF9E9E9E),
                 ),
-                Text(
-                  "$note",
-                  style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 10,
-                    color: Color(0xFF9E9E9E),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

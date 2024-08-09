@@ -40,51 +40,52 @@ class _ListeUtilisateurState extends State<ListeUtilisateur> {
           ),
         ),
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await controller.listUser(user.token['token']);
-        },
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
-              child: FormWidgetSansIcon(
-                 callback: (search) {
-              setState(() {
-                seachValeur = search;
-                controller.listUser(user.token['token'], search: search);
-                // RechercheEvent(seach);
-              });
-            },  
-              controller: searchController,
-                prefixicon: Icon(
-                  Icons.search,
-                  size: 35,
+      body:  Obx(()=> RefreshIndicator(
+          onRefresh: () async {
+            await controller.listUser(user.token['token']);
+          },
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
+                child: FormWidgetSansIcon(
+                   callback: (search) {
+                setState(() {
+                  seachValeur = search;
+                  controller.listUser(user.token['token'], search: search);
+                  // RechercheEvent(seach);
+                });
+              },  
+                controller: searchController,
+                  prefixicon: Icon(
+                    Icons.search,
+                    size: 35,
+                  ),
+                  border: 50,
                 ),
-                border: 50,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              // height: 200,
-              child: ListView.builder(
-                itemCount: user.listUser[0].length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 15, top: 10),
-                    child: ListeNomWidget(
-                      nom: "${user.listUser[0][index]["last_name"]}",
-                      departement: "HSE",
-                      note: 18,
-                      onPressed: () => Get.toNamed(AppRoute.detailUtilisateur),
-                    ),
-                  );
-                },
+              const SizedBox(
+                height: 20,
               ),
-            ),
-          ],
+              Expanded(
+                // height: 200,
+                child: ListView.builder(
+                  itemCount: user.listUser[0].length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 15, top: 10),
+                      child: ListeNomWidget(
+                        nom: "${user.listUser[0][index]["last_name"]}",
+                        departement: "HSE",
+                        note: 18,
+                        onPressed: () => Get.toNamed(AppRoute.detailUtilisateur),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:upgrade_employ/component/buttom_widget/buttom_widget.dart';
 import 'package:upgrade_employ/component/constante.dart';
 import 'package:upgrade_employ/component/form_widget/form_widget_sans_icon.dart';
 import 'package:upgrade_employ/controller/evaluation_controller.dart';
 import 'package:upgrade_employ/data/model.dart';
+import 'package:upgrade_employ/navigation/app_route.dart';
 
 class DetailEvaluation extends StatefulWidget {
   const DetailEvaluation({super.key});
@@ -253,6 +257,13 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
             ),
             SizedBox(
               height: 15,
+            ),
+            ButtonWidget(
+              text: "Commencer",
+              onPressed: () {
+                Get.toNamed(AppRoute.question);
+              },
+
             ),
           ],
         ),

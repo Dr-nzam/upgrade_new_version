@@ -18,7 +18,7 @@ class HistoriqueWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       
-      leading: Icon(
+      leading: const Icon(
         Icons.book,
         size: 30,
       ),
@@ -28,19 +28,19 @@ class HistoriqueWidget extends StatelessWidget {
       ),
       subtitle: prochain != ""
           ? Text(
-              "L'évaluation ${prochain}",
+              "L'évaluation $prochain",
               style: GoogleFonts.inter(),
             )
           : nombreParticipant == 1
               ? Text(
-                  "Nombre de participant ${nombreParticipant}",
+                  "Nombre de participant $nombreParticipant",
                   style: GoogleFonts.inter(),
                 )
               : Text(
-                  "Nombre de participants ${nombreParticipant}",
+                  "Nombre de participants $nombreParticipant",
                   style: GoogleFonts.inter(),
                 ),
-      trailing: Icon(
+      trailing: const Icon(
         Icons.arrow_forward_ios,
         size: 30,
         color: Colors.blue,

@@ -41,6 +41,7 @@ class AuthentificationController extends GetxController {
       if (response.statusCode == 200) {
         userModel.donnees.value = [response.body];
         loading.value = false;
+        // print(response.body);
         return response;
       }
     } else {
@@ -63,18 +64,18 @@ class AuthentificationController extends GetxController {
     if (response.statusCode != null) {
       if (!response.status.hasError) {
         // messageObs = response.body["message"];
-        print(response.body);
+        // print(response.body);
         loading.value = false;
         return response;
       } else {
-        print("**-**-*-*--**-*-*");
-        print(response.body);
+        // print("**-**-*-*--**-*-*");
+        // print(response.body);
         messageObs = response.body["old_password"][0];
         loading.value = false;
         return response;
       }
     } else {
-      messageObs = "Erreur de connexion au server*";
+      messageObs = "Erreur de connexion au server";
       loading.value = false;
       return response;
     }
@@ -105,7 +106,7 @@ class AuthentificationController extends GetxController {
         loading.value = false;
         return response;
       } else {
-        print(response.body);
+        // print(response.body);
         messageObs = response.body["message"]['email'][0];
         loading.value = false;
         return response;
