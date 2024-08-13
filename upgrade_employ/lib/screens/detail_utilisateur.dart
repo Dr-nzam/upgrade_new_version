@@ -24,7 +24,7 @@ class _DetailUtilisateurState extends State<DetailUtilisateur> {
         ),
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -35,7 +35,7 @@ class _DetailUtilisateurState extends State<DetailUtilisateur> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 15, top: 25, right: 15),
+            padding: const EdgeInsets.only(left: 15, top: 25, right: 15),
             child: Text("Tableau recaputilatif des evaluations de jonh Doe", style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w300),),
           ),
           Expanded(

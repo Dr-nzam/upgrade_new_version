@@ -34,7 +34,7 @@ class _ListeUtilisateurState extends State<ListeUtilisateur> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => Get.offNamed(AppRoute.core),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -57,7 +57,7 @@ class _ListeUtilisateurState extends State<ListeUtilisateur> {
                 });
               },  
                 controller: searchController,
-                  prefixicon: Icon(
+                  prefixicon: const Icon(
                     Icons.search,
                     size: 35,
                   ),

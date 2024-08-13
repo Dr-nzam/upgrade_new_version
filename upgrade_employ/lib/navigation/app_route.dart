@@ -14,4 +14,5 @@ class AppRoute {
   static const listeUtilisateur = '/listeUtilisateur';
   static const detailUtilisateur = '/detailUtilisateur';
   static const question = '/question';
-}
+  static const score = '/score';
+  }

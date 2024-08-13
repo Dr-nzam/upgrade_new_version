@@ -30,9 +30,9 @@ class _CoreState extends State<Core> {
   @override
   Widget build(BuildContext context) {
     List page = [
-      Home(),
-      Historique(),
-      Parametre(),
+      const Home(),
+      const Historique(),
+      const Parametre(),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -44,10 +44,10 @@ class _CoreState extends State<Core> {
         centerTitle: true,
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: user.donnees[0]["is_admin"] == true?true:false,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       
-      drawer: user.donnees[0]["is_admin"] == true? DrawerWidget():null,
+      drawer: user.donnees[0]["is_admin"] == true? const DrawerWidget():null,
       body: Container(
         child: page.elementAt(_selectedIndex),
       ),
@@ -65,7 +65,7 @@ class _CoreState extends State<Core> {
       bottomNavigationBar: BottomNavigationBar(
         elevation: 5,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: const Color(0xFFFFFFFF),
         selectedItemColor: selectCouleur,
         selectedIconTheme: const IconThemeData(
           color: Color(0xFF5669FF),

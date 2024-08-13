@@ -24,7 +24,7 @@ class _ParametreState extends State<Parametre> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SingleChildScrollView(
-                padding: EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 15, right: 15),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +42,7 @@ class _ParametreState extends State<Parametre> {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Positioned(
+                          const Positioned(
                             right: 0,
                             bottom: 0,
                             child: CircleAvatar(
@@ -59,80 +59,76 @@ class _ParametreState extends State<Parametre> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SingleChildScrollView(
-                child: Container(
-                  child: Text(
-                    "Mon compte",
-                    style: GoogleFonts.inter(
-                        fontSize: 15, fontWeight: FontWeight.w400),
-                  ),
-                ),
-              ),
-              Divider(
-                color: Colors.black,
-              ),
-              ListTile(
-                onTap: ()=>Get.toNamed(AppRoute.changePassword),
-                leading: Icon(Icons.lock),
-                title: Text(
-                  "changer votre mot de passe",
-                  style: GoogleFonts.inter(),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.blue,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
                 child: Text(
-                  "Support",
+                  "Mon compte",
                   style: GoogleFonts.inter(
                       fontSize: 15, fontWeight: FontWeight.w400),
                 ),
               ),
-              Divider(
+              const Divider(
                 color: Colors.black,
               ),
               ListTile(
-                leading: Icon(Icons.info),
+                onTap: ()=>Get.toNamed(AppRoute.changePassword),
+                leading: const Icon(Icons.lock),
+                title: Text(
+                  "changer votre mot de passe",
+                  style: GoogleFonts.inter(),
+                ),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.blue,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Support",
+                style: GoogleFonts.inter(
+                    fontSize: 15, fontWeight: FontWeight.w400),
+              ),
+              const Divider(
+                color: Colors.black,
+              ),
+              ListTile(
+                leading: const Icon(Icons.info),
                 title: Text(
                   "À propos de Up-Grade",
                   style: GoogleFonts.inter(),
                 ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.blue,
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.menu_book),
+                leading: const Icon(Icons.menu_book),
                 title: Text(
                   "Conditions générales",
                   style: GoogleFonts.inter(),
                 ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.blue,
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.lock_open),
+                leading: const Icon(Icons.lock_open),
                 title: Text(
                   "Politique de confidentialité",
                   style: GoogleFonts.inter(),
                 ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.blue,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Column(
@@ -141,7 +137,7 @@ class _ParametreState extends State<Parametre> {
                 children: [
                   Container(
                     alignment: Alignment.bottomLeft,
-                    color: Color(0xFFDBDBE4),
+                    color: const Color(0xFFDBDBE4),
                     child: TextButton(
                       onPressed: () async{
                         await secureStorage.setToken('');

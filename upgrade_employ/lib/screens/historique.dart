@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:upgrade_employ/component/historique_widget.dart';
 import 'package:upgrade_employ/data/model.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
@@ -23,7 +23,6 @@ class _HistoriqueState extends State<Historique> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     frist();
   }
@@ -37,7 +36,7 @@ class _HistoriqueState extends State<Historique> {
             await controller.historique(user.token['token']);
           },
           child: controller.loading.value == true
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator.adaptive(
                     backgroundColor: Colors.blue,
                   ),

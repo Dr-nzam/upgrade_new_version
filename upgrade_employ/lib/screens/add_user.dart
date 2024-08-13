@@ -39,12 +39,11 @@ class _AddUserState extends State<AddUser> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     listDepartement() async {
-      var response = await controller.allDepartement(user.token['token']);
+      await controller.allDepartement(user.token['token']);
 
-      _items = departementlist.donnees.value
+      _items = departementlist.donnees
           .map((dep) => dep['nomDepartement'] as String)
           .toList();
     }
@@ -66,11 +65,11 @@ class _AddUserState extends State<AddUser> {
               color: Colors.white, fontWeight: FontWeight.w500),
         ),
         centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => Get.offNamed(AppRoute.core),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -79,21 +78,22 @@ class _AddUserState extends State<AddUser> {
       body: Form(
         key: keyform,
         child: ListView(
-          padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 20),
+          padding:
+              const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 20),
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("${Constante.imagePath}bienvenue.png"),
                       fit: BoxFit.cover),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -101,68 +101,68 @@ class _AddUserState extends State<AddUser> {
               style:
                   GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Text(
               "Nom",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             FormWidgetSansIcon(
               controller: nomController,
               placeholder: 'Ninke',
-              prefixicon: Icon(
+              prefixicon: const Icon(
                 Icons.person,
                 color: Colors.blue,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Prenom",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             FormWidgetSansIcon(
               controller: prenomController,
               placeholder: 'Celina',
-              prefixicon: Icon(
+              prefixicon: const Icon(
                 Icons.person,
                 color: Colors.blue,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "E-mail",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             FormWidgetSansIcon(
               controller: emailController,
               placeholder: 'celinaninke@elecit.com',
-              prefixicon: Icon(
+              prefixicon: const Icon(
                 Icons.email,
                 color: Colors.blue,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Tel",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             IntlPhoneField(
@@ -177,14 +177,14 @@ class _AddUserState extends State<AddUser> {
                   fontWeight: FontWeight.w400,
                   color: const Color(0xFF9A9A9A),
                 ),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.blue,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 // labelText: 'Phone Number',
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(
                       color: Colors.blue,
@@ -192,24 +192,24 @@ class _AddUserState extends State<AddUser> {
               ),
               languageCode: "fr",
               onChanged: (phone) {
-                print(phone.completeNumber);
+                // print(phone.completeNumber);
               },
               onCountryChanged: (country) {
-                print('Country changed to: ' + country.name);
+                // print('Country changed to: ' + country.name);
               },
             ),
             Text(
               "Departement",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             FormWidgetSansIcon(
               controller: departementController,
               keyboardType: TextInputType.none,
               placeholder: 'INFORMATIQUE',
-              prefixicon: Icon(
+              prefixicon: const Icon(
                 Icons.desktop_mac_outlined,
                 color: Colors.blue,
               ),
@@ -240,7 +240,7 @@ class _AddUserState extends State<AddUser> {
                           departementController.text = selectedItem ?? '';
                           Navigator.of(context).pop();
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
                             horizontal: 10,
@@ -252,14 +252,14 @@ class _AddUserState extends State<AddUser> {
                 );
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Mot de passe",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             FormWidget(
@@ -267,7 +267,7 @@ class _AddUserState extends State<AddUser> {
               border: 10,
               placeholder: '*********',
               isPassword: ispass,
-              prefixicon: IconButton(
+              prefixicon: const IconButton(
                 onPressed: null,
                 icon: Icon(Icons.lock, color: Colors.blue),
               ),
@@ -278,14 +278,14 @@ class _AddUserState extends State<AddUser> {
                   });
                 },
                 icon: ispass
-                    ? Icon(
+                    ? const Icon(
                         Icons.visibility,
                         color: Colors.blue,
                       )
-                    : Icon(Icons.visibility_off),
+                    : const Icon(Icons.visibility_off),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ButtonWidget(
@@ -293,7 +293,7 @@ class _AddUserState extends State<AddUser> {
               border: 10,
               onPressed: () async {
                 if (keyform.currentState!.validate()) {
-                  var result = departementlist.donnees.value.firstWhere(
+                  var result = departementlist.donnees.firstWhere(
                     (dept) =>
                         dept['nomDepartement'] == departementController.text,
                     orElse: () => {'id': null, 'nomDepartement': 'Non trouvé'},
@@ -301,14 +301,14 @@ class _AddUserState extends State<AddUser> {
 
                   // Affichage du résultat
                   if (result['id'] != null) {
-                    print(
-                        'ID du département "${departementController.text}": ${result['id']}');
+                    // print(
+                    //     'ID du département "${departementController.text}": ${result['id']}');
                     idDepartement = result['id'];
                   } else {
-                    print(
-                        'Département "${departementController.text}" non trouvé.');
+                    // print(
+                    //     'Département "${departementController.text}" non trouvé.');
                   }
-                  print(passwordController.text);
+                  // print(passwordController.text);
                   var reponse = await controllerAuth.ajouterUtisateur(
                       nomController.text,
                       prenomController.text,
@@ -317,9 +317,10 @@ class _AddUserState extends State<AddUser> {
                       idDepartement!,
                       passwordController.text,
                       user.token['token']);
-                    print("tot");
+                  // print("tot");
                   if (reponse.statusCode == 201) {
                     FlashToast.showFlashToast(
+                      // ignore: use_build_context_synchronously
                       context: context,
                       title: "Utilisateur",
                       message: " Utilisateur ajouté avec succèss",
@@ -327,15 +328,14 @@ class _AddUserState extends State<AddUser> {
                       flashType: FlashType.success,
                     );
                     nomController.text = '';
-                      prenomController.text = '';
-                      emailController.text = '';
-                      telController.text = ''; 
-                      departementController.text = '';
-                      passwordController.text = '';
-
-                  }
-                  else{
+                    prenomController.text = '';
+                    emailController.text = '';
+                    telController.text = '';
+                    departementController.text = '';
+                    passwordController.text = '';
+                  } else {
                     FlashToast.showFlashToast(
+                      // ignore: use_build_context_synchronously
                       context: context,
                       title: "Error",
                       message: controllerAuth.messageObs,

@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(right: 15.0, left: 15.0),
+          padding: const EdgeInsets.only(right: 15.0, left: 15.0),
           child: Form(
             key: keyform,
             child: Column(
@@ -40,10 +40,10 @@ class _LoginState extends State<Login> {
                 FormWidget(
                   controller: emailController,
                   placeholder: "Email",
-                  prefixicon:
-                      IconButton(onPressed: null, icon: Icon(Icons.email)),
+                  prefixicon: const IconButton(
+                      onPressed: null, icon: Icon(Icons.email)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 FormWidget(
@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
                   placeholder: "password",
                   isPassword: ispass,
                   prefixicon:
-                      IconButton(onPressed: null, icon: Icon(Icons.lock)),
+                      const IconButton(onPressed: null, icon: Icon(Icons.lock)),
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
@@ -59,11 +59,11 @@ class _LoginState extends State<Login> {
                       });
                     },
                     icon: ispass
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility_off),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 ButtonWidget(
@@ -75,16 +75,18 @@ class _LoginState extends State<Login> {
                       if (response.statusCode == 200) {
                         // print("tout c'est bien passe");
                         Get.offAllNamed(AppRoute.core);
-                      } else if(response.statusCode != null) {
+                      } else if (response.statusCode != null) {
                         FlashToast.showFlashToast(
+                          // ignore: use_build_context_synchronously
                           context: context,
                           title: "Erreur de connexion.",
                           message: "Mot de passe ou email incorrect.",
                           duration: 4,
                           flashType: FlashType.error,
                         );
-                      }else{
+                      } else {
                         FlashToast.showFlashToast(
+                          // ignore: use_build_context_synchronously
                           context: context,
                           title: "Erreur de connexion.",
                           message: "Erreur de connexion au server.",
@@ -103,10 +105,10 @@ class _LoginState extends State<Login> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
@@ -122,7 +124,7 @@ class _LoginState extends State<Login> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 TextButton(

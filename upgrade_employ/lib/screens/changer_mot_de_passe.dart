@@ -39,7 +39,7 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -48,20 +48,20 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
       body: Form(
           key: keyform,
           child: ListView(
-            padding: EdgeInsets.only(left: 15, right: 15, top: 20),
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
             children: [
               Text(
                 "Anciens  mot de passe ",
                 style: GoogleFonts.inter(fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               FormWidget(
                 border: 10,
                 controller: ancienPassController,
                 placeholder: '****************',
-                prefixicon: IconButton(onPressed: null, icon: Icon(Icons.lock)),
+                prefixicon: const IconButton(onPressed: null, icon: Icon(Icons.lock)),
                 isPassword: ispass,
                 suffixIcon: IconButton(
                   onPressed: () {
@@ -70,25 +70,25 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
                     });
                   },
                   icon: ispass
-                      ? Icon(Icons.visibility)
-                      : Icon(Icons.visibility_off),
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 "Nouveau mot de passe​ ",
                 style: GoogleFonts.inter(fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               FormWidget(
                 border: 10,
                 controller: nouveauPassController,
                 placeholder: '****************',
-                prefixicon: IconButton(
+                prefixicon: const IconButton(
                   onPressed: null,
                   icon: Icon(Icons.lock),
                 ),
@@ -100,18 +100,18 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
                     });
                   },
                   icon: nispass
-                      ? Icon(Icons.visibility)
-                      : Icon(Icons.visibility_off),
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 "Confirmer le  mot de passe",
                 style: GoogleFonts.inter(fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               FormWidget(
@@ -119,7 +119,7 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
                 isPassword: cispass,
                 controller: confirmPassController,
                 placeholder: '****************',
-                prefixicon: IconButton(
+                prefixicon: const IconButton(
                   onPressed: null,
                   icon: Icon(Icons.lock),
                 ),
@@ -130,8 +130,8 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
                     });
                   },
                   icon: cispass
-                      ? Icon(Icons.visibility)
-                      : Icon(Icons.visibility_off),
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
                 ),
               ),
               SizedBox(
@@ -141,7 +141,7 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
                 text: "Changer le mot de passe",
                 border: 10,
                 onPressed: () async {
-                  print(user.token['token']);
+                  // print(user.token['token']);
                   if (keyform.currentState!.validate()) {
                     if (nouveauPassController.text ==
                         confirmPassController.text) {
@@ -152,6 +152,7 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
                           user.token['token']);
                       if (response.statusCode == 200) {
                         FlashToast.showFlashToast(
+                          // ignore: use_build_context_synchronously
                           context: context,
                           title: "MOT DE PASSE",
                           message: "Mot de passe changé avec succèss",
@@ -164,6 +165,7 @@ class _ChangerMotDePasseState extends State<ChangerMotDePasse> {
                         Get.back();
                       } else {
                         FlashToast.showFlashToast(
+                          // ignore: use_build_context_synchronously
                           context: context,
                           title: "ERREUR",
                           message:

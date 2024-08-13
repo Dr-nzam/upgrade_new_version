@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,14 +19,15 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
   DepartementModel departementModel = Get.find();
   EvaluationController controller = EvaluationController();
   UserModel user = Get.find();
+  // ignore: prefer_typing_uninitialized_variables
   var departementlist;
   String? departementnom;
 @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     void first() async {
       await controller.allDepartement(user.token['token']);
+      await controller.question(user.token['token']);
     }
 
     first();
@@ -69,7 +68,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
     final TextEditingController heureFinController =
         TextEditingController(text: "${detail['heureFin']}");
     final TextEditingController departementController =
-        TextEditingController(text: "${departementnom}");
+        TextEditingController(text: "$departementnom");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -82,7 +81,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -90,40 +89,40 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
       ),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("${Constante.imagePath}detail.jpeg"),
                       fit: BoxFit.cover),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Nom de l'évaluation",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             FormWidgetSansIcon(
               controller: nomEvaluationController,
               placeholder: 'HSE',
               keyboardType: TextInputType.none,
-              prefixicon: Icon(
+              prefixicon: const Icon(
                 Icons.text_fields_outlined,
                 color: Colors.blue,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -136,7 +135,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                       "Date de debut",
                       style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     SizedBox(
@@ -145,7 +144,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                         placeholder: '13/7/2024',
                         controller: dateDebutController,
                         keyboardType: TextInputType.none,
-                        prefixicon: Icon(
+                        prefixicon: const Icon(
                           Icons.date_range_outlined,
                           color: Colors.blue,
                         ),
@@ -160,7 +159,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                       "Heure de debut",
                       style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     SizedBox(
@@ -169,7 +168,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                         placeholder: '10:00',
                         controller: heureDebutController,
                         keyboardType: TextInputType.none,
-                        prefixicon: Icon(
+                        prefixicon: const Icon(
                           Icons.watch_later_outlined,
                           color: Colors.blue,
                         ),
@@ -179,7 +178,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -192,7 +191,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                       "Date de fin",
                       style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     SizedBox(
@@ -201,7 +200,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                         placeholder: '13/07/2024',
                         controller: dateFinController,
                         keyboardType: TextInputType.none,
-                        prefixicon: Icon(
+                        prefixicon: const Icon(
                           Icons.date_range_outlined,
                           color: Colors.blue,
                         ),
@@ -216,17 +215,17 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                       "Heure de fin",
                       style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    Container(
+                    SizedBox(
                       // color: Colors.red,
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: FormWidgetSansIcon(
                         placeholder: '10:30',
                         controller: heureFinController,
                         keyboardType: TextInputType.none,
-                        prefixicon: Icon(
+                        prefixicon: const Icon(
                           Icons.watch_later_outlined,
                           color: Colors.blue,
                         ),
@@ -236,32 +235,32 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               "Departement",
               style: GoogleFonts.inter(fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             FormWidgetSansIcon(
               placeholder: 'INFORMATIQUE',
               keyboardType: TextInputType.none,
               controller: departementController,
-              prefixicon: Icon(
+              prefixicon: const Icon(
                 Icons.desktop_mac_outlined,
                 color: Colors.blue,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             ButtonWidget(
               text: "Commencer",
               onPressed: () {
-                Get.toNamed(AppRoute.question);
+                Get.offNamed(AppRoute.question);
               },
 
             ),

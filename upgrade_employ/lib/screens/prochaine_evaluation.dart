@@ -19,7 +19,6 @@ class _ProchaineEvaluationState extends State<ProchaineEvaluation> {
   EvaluationModel evaluationModel = Get.find();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     void first() async {
       await controller.evaluationFuture(user.token['token']);
@@ -41,7 +40,7 @@ class _ProchaineEvaluationState extends State<ProchaineEvaluation> {
         ),
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -54,30 +53,27 @@ class _ProchaineEvaluationState extends State<ProchaineEvaluation> {
             await controller.evaluationFuture(user.token['token']);
           },
           child: controller.loading.value == true
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator.adaptive(
                   backgroundColor: Colors.blue,
                 ))
-              : Container(
-                  // height: MediaQuery.of(context).size.height * 0.18,
-                  child: ListView.builder(
-                    itemCount: evaluationModel.donnees.length,
-                    itemBuilder: (context, index) {
-                      return HistoriqueWidget(
-                        date: evaluationModel.donnees[index]['dateDebut'] ??
-                            'Date non disponible',
-                        nombreParticipant: 12,
-                        prochain: evaluationModel.donnees[index]['nom'] ??
-                            'Date non disponible',
-                        onPressed: () => Get.toNamed(AppRoute.detailEvaluation,
-                            arguments: {
-                              "detailEvent": evaluationModel.donnees[index],
-                              "id":1
-                            }),
-                      );
-                    },
-                  ),
-                ),
+              : ListView.builder(
+                itemCount: evaluationModel.donnees.length,
+                itemBuilder: (context, index) {
+                  return HistoriqueWidget(
+                    date: evaluationModel.donnees[index]['dateDebut'] ??
+                        'Date non disponible',
+                    nombreParticipant: 12,
+                    prochain: evaluationModel.donnees[index]['nom'] ??
+                        'Date non disponible',
+                    onPressed: () => Get.toNamed(AppRoute.detailEvaluation,
+                        arguments: {
+                          "detailEvent": evaluationModel.donnees[index],
+                          "id":1
+                        }),
+                  );
+                },
+              ),
         ),
       ),
     );

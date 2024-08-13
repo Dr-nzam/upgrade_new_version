@@ -38,7 +38,7 @@ class _StatistiqueState extends State<Statistique> {
         ),
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),

@@ -86,7 +86,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     first();
   }
@@ -115,7 +114,7 @@ class _HomeState extends State<Home> {
                   color: const Color(0xFF9E9E9E),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               CarouselSlider(
                 options: CarouselOptions(
                   autoPlay: true,
@@ -124,7 +123,7 @@ class _HomeState extends State<Home> {
                 ),
                 items: imageSliders,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               user.donnees[0]["is_admin"] == true
@@ -185,12 +184,12 @@ class _HomeState extends State<Home> {
                 height: 5,
               ),
               controller.loading.value == true
-                  ? Center(
+                  ? const Center(
                       child: CircularProgressIndicator.adaptive(
                         backgroundColor: Colors.blue,
                       ),
                     )
-                  : Container(
+                  : SizedBox(
                       height: evaluationModel.donnees.length <= 1
                           ? MediaQuery.of(context).size.height *
                               0.1 // Hauteur réduite pour une seule donnée
@@ -259,7 +258,7 @@ class _HomeState extends State<Home> {
               const SizedBox(
                 height: 8,
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.09,
                 child: statistiqueModel.donnees.isEmpty
                     ? Center(

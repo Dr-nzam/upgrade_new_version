@@ -10,7 +10,7 @@ import 'package:upgrade_employ/controller/evaluation_controller.dart';
 import 'package:upgrade_employ/data/model.dart';
 
 class NouvelleEvaluation extends StatefulWidget {
-  NouvelleEvaluation({super.key});
+  const NouvelleEvaluation({super.key});
 
   @override
   State<NouvelleEvaluation> createState() => _NouvelleEvaluationState();
@@ -73,9 +73,9 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
     }
 
     listDepartement() async {
-      var response = await controller.allDepartement(user.token['token']);
+      await controller.allDepartement(user.token['token']);
 
-      _items = departementlist.donnees.value
+      _items = departementlist.donnees
           .map((dep) => dep['nomDepartement'] as String)
           .toList();
     }
@@ -94,7 +94,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -104,14 +104,14 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
         child: Form(
           key: keyform,
           child: ListView(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.2,
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                         image:
                             AssetImage("${Constante.imagePath}Excellence.jpg"),
@@ -119,32 +119,32 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text(
                 "Programmer une evaluation",
                 style: GoogleFonts.inter(fontWeight: FontWeight.w600),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 "Nom de l'évaluation",
                 style: GoogleFonts.inter(fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               FormWidgetSansIcon(
                 controller: nomEvaluationController,
                 placeholder: 'HSE',
-                prefixicon: Icon(
+                prefixicon: const Icon(
                   Icons.text_fields_outlined,
                   color: Colors.blue,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -157,7 +157,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                         "Date de debut",
                         style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SizedBox(
@@ -166,7 +166,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                           placeholder: '13/7/2024',
                           controller: dateDebutController,
                           keyboardType: TextInputType.none,
-                          prefixicon: Icon(
+                          prefixicon: const Icon(
                             Icons.date_range_outlined,
                             color: Colors.blue,
                           ),
@@ -188,7 +188,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                         "Heure de debut",
                         style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SizedBox(
@@ -197,7 +197,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                           placeholder: '10:00',
                           controller: heureDebutController,
                           keyboardType: TextInputType.none,
-                          prefixicon: Icon(
+                          prefixicon: const Icon(
                             Icons.watch_later_outlined,
                             color: Colors.blue,
                           ),
@@ -214,7 +214,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -227,7 +227,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                         "Date de fin",
                         style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SizedBox(
@@ -236,7 +236,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                           placeholder: '13/07/2024',
                           controller: dateFinController,
                           keyboardType: TextInputType.none,
-                          prefixicon: Icon(
+                          prefixicon: const Icon(
                             Icons.date_range_outlined,
                             color: Colors.blue,
                           ),
@@ -258,10 +258,10 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                         "Heure de fin",
                         style: GoogleFonts.inter(fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Container(
+                      SizedBox(
                         // color: Colors.red,
                         width: MediaQuery.of(context).size.width * 0.3,
                         child: FormWidgetSansIcon(
@@ -275,7 +275,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                           },
                           controller: heureFinController,
                           keyboardType: TextInputType.none,
-                          prefixicon: Icon(
+                          prefixicon: const Icon(
                             Icons.watch_later_outlined,
                             color: Colors.blue,
                           ),
@@ -285,21 +285,21 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 "Departement",
                 style: GoogleFonts.inter(fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               FormWidgetSansIcon(
                 placeholder: 'INFORMATIQUE',
                 keyboardType: TextInputType.none,
                 controller: departementController,
-                prefixicon: Icon(
+                prefixicon: const Icon(
                   Icons.desktop_mac_outlined,
                   color: Colors.blue,
                 ),
@@ -332,7 +332,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                             departementController.text = selectedItem ?? '';
                             Navigator.of(context).pop();
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
                               horizontal: 10,
@@ -344,7 +344,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                   );
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               // Obx(() => Text("${controller.loading.value}")),
@@ -361,8 +361,7 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                       ? null
                       : () async {
                           if (keyform.currentState!.validate()) {
-                            var result =
-                                departementlist.donnees.firstWhere(
+                            var result = departementlist.donnees.firstWhere(
                               (dept) =>
                                   dept['nomDepartement'] ==
                                   departementController.text,
@@ -372,12 +371,12 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
 
                             // Affichage du résultat
                             if (result['id'] != null) {
-                              print(
-                                  'ID du département "${departementController.text}": ${result['id']}');
+                              // print(
+                              //     'ID du département "${departementController.text}": ${result['id']}');
                               idDepartement = result['id'];
                             } else {
-                              print(
-                                  'Département "${departementController.text}" non trouvé.');
+                              // print(
+                              //     'Département "${departementController.text}" non trouvé.');
                             }
 
                             Response response =
@@ -391,26 +390,29 @@ class _NouvelleEvaluationState extends State<NouvelleEvaluation> {
                                     user.token['token']);
                             if (response.statusCode == 201) {
                               FlashToast.showFlashToast(
+                                // ignore: use_build_context_synchronously
                                 context: context,
                                 title: "Evaluation",
                                 message: "Evaluation crée avec succèss",
                                 duration: 3,
                                 flashType: FlashType.success,
                               );
-                              nomEvaluationController.text='';
-                                    dateDebutController.text='';
-                                    dateFinController.text = '';
-                                    heureDebutController.text = '';
-                                    heureFinController.text = '';
-                                    departementController.text = '';
+                              nomEvaluationController.text = '';
+                              dateDebutController.text = '';
+                              dateFinController.text = '';
+                              heureDebutController.text = '';
+                              heureFinController.text = '';
+                              departementController.text = '';
                             } else {
                               FlashToast.showFlashToast(
-                              context: context,
-                              title: "Evaluation",
-                              message: "Échec de création, veuillez réessayer plus tard ",
-                              duration: 4,
-                              flashType: FlashType.error,
-                            );
+                                // ignore: use_build_context_synchronously
+                                context: context,
+                                title: "Evaluation",
+                                message:
+                                    "Échec de création, veuillez réessayer plus tard ",
+                                duration: 4,
+                                flashType: FlashType.error,
+                              );
                             }
                           } else {
                             FlashToast.showFlashToast(
