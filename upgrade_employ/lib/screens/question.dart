@@ -20,6 +20,7 @@ class _QuestionState extends State<Question> {
   int idcouleur = -1;
   String texte = "";
   int intdex = 0;
+  int bonneReponseUser = 0;
   String textBouton = 'Suivant';
   List quest = [];
   List reponseQuest = [];
@@ -27,6 +28,16 @@ class _QuestionState extends State<Question> {
   List bonneReponse = [];
   List reponseMelanger = [];
   EvaluationController controller = EvaluationController();
+  UserModel user = Get.find();
+  int getQuestionId(String questionText) {
+    for (var question in evaluation.question) {
+      if (question['question'] == questionText) {
+        return question['id'];
+      }
+    }
+    return 0;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,11 +51,14 @@ class _QuestionState extends State<Question> {
       reponseQuest[i].add(bonneReponse[i]);
       reponseQuest[i].shuffle(Random());
     }
+    print(evaluation.question);
   }
 
   int i = 0;
   @override
   Widget build(BuildContext context) {
+    int idEvent = Get.arguments['id_event'];
+    int idDepartement = Get.arguments['id_departement'];
     // print(reponseQuest);
     return Scaffold(
       appBar: AppBar(
@@ -95,54 +109,45 @@ class _QuestionState extends State<Question> {
                 ButtonWidget(
                   text: textBouton,
                   border: 10,
-                  onPressed: textBouton == "Terminer"
-                      ? () async{
-                          if (idcouleur > 0) {
-                            Get.offNamed(AppRoute.score);
-                          } else {
-                            FlashToast.showFlashToast(
-                              context: context,
-                              title: "Erreur de choix",
-                              message: "Veillez choisir une reponse",
-                              duration: 3,
-                              flashType: FlashType.error,
-                            );
-                          }
-                        }
-                      : () {
-                          setState(
-                            () {
-                              if (idcouleur > 0) {
-                                if (intdex < quest.length - 1) {
-                                  intdex = intdex + 1;
-                                  i = i + 1;
-                                  
-                                  setState(() async{
-                                    texte = "";
-                                    // await Controller
-                                  });
+                  onPressed: () async {
+                    int idQuestion = getQuestionId(quest[intdex]);
+                    var reponse = await controller.validerReponse(
+                        idQuestion, texte, user.token['token']);
+                    print("**********************");
+                    print(reponse.body);
+                    if (reponse.body['message'] == "bonne reponse") {
+                      bonneReponseUser = bonneReponseUser + 1;
+                    }
 
-                                  idcouleur = -1;
-                                } else {
-                                  textBouton = "Terminer";
-                                  idcouleur = -1;
-                                  // i = i+1;
-                                  setState(() {
-                                    texte = "";
-                                  });
-                                }
-                              } else {
-                                FlashToast.showFlashToast(
-                                  context: context,
-                                  title: "Erreur de choix",
-                                  message: "Veillez choisir une reponse",
-                                  duration: 1,
-                                  flashType: FlashType.error,
-                                );
-                              }
-                            },
+                    setState(
+                      () {
+                        if (idcouleur > 0) {
+                          if (intdex < quest.length - 1) {
+                            intdex = intdex + 1;
+                            print(intdex);
+                            i = i + 1;
+                            texte = "";
+                            idcouleur = -1;
+                          } else {
+                            Get.offNamed(AppRoute.score, arguments: {
+                              "nombre_question": intdex + 1,
+                              "bonne_reponse": bonneReponseUser,
+                              "id_event": idEvent,
+                              "id_departement":idDepartement,
+                            });
+                          }
+                        } else {
+                          FlashToast.showFlashToast(
+                            context: context,
+                            title: "Erreur de choix",
+                            message: "Veillez choisir une reponse",
+                            duration: 1,
+                            flashType: FlashType.error,
                           );
-                        },
+                        }
+                      },
+                    );
+                  },
                 ),
               ],
             ),

@@ -58,8 +58,8 @@ class EvaluationController extends GetxController {
     if (!response.status.hasError) {
       departementModel.donnees.value = response.body;
       loading.value = false;
-      // print("########################################");
-      // print(response.body);
+      print("########################################");
+      print(response.body);
     } else {
       loading.value = true;
     }
@@ -135,7 +135,6 @@ class EvaluationController extends GetxController {
       ];
     }
   }
-  
 
   Future<Response> validerReponse(
       int idQuestion, String reponse, String token) async {
@@ -149,10 +148,12 @@ class EvaluationController extends GetxController {
     );
     if (response.statusCode != null) {
       if (!response.status.hasError) {
+        // print(response.body);
         messageObs.value = response.body["message"];
         loading.value = false;
         return response;
       } else {
+        // print(response.body);
         messageObs.value = response.body["message"];
         loading.value = false;
         return response;
@@ -161,6 +162,57 @@ class EvaluationController extends GetxController {
       messageObs.value = "Erreur de connexion au server*";
       loading.value = false;
       return response;
+    }
+  }
+
+  Future<Response> participeEvaluation(
+      int idEvent, int idDepartement, int note, String token) async {
+    loading.value = true;
+    var response = await _provider.participeEvaluationPost(
+      {'id_event': idEvent, 'id_departement': idDepartement, 'note': note},
+      token,
+    );
+    if (response.statusCode != null) {
+      if (!response.status.hasError) {
+        // print(response.body);
+        // messageObs.value = response.body["message"];
+        loading.value = false;
+        return response;
+      } else {
+        // print(response.body);
+        messageObs.value = response.body["message"];
+        loading.value = false;
+        return response;
+      }
+    } else {
+      messageObs.value = "Erreur de connexion au server*";
+      loading.value = false;
+      return response;
+    }
+  }
+
+  Future<List> verificationParticipation(
+      String token, int idEvent) async {
+    loading.value = true;
+    //  final HomeProvider provider = HomeProvider();
+    var response = await _provider.VerificationParticipation(token, idEvent);
+    if (response.statusCode != null) {
+      if (!response.status.hasError) {
+        evaluationModel.participation.value = [response.body];
+        messageObs.value = response.body['message'];
+        loading.value = false;
+        return [response.body];
+      } else {
+        evaluationModel.participation.value = [response.body];
+        messageObs.value = response.body['message'];
+        loading.value = true;
+        return [response.body];
+      }
+    } else {
+      messageObs.value = "Error request";
+      return [
+        {"message": "Error request"}
+      ];
     }
   }
 }

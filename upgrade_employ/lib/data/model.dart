@@ -10,6 +10,7 @@ class EvaluationModel extends GetxService{
   var donnees = [].obs;
   var historique = [].obs;
   var question = [].obs;
+  var participation = [].obs;
 }
 
 class DepartementModel extends GetxService{

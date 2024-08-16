@@ -7,6 +7,7 @@ import 'package:upgrade_employ/component/form_widget/form_widget_sans_icon.dart'
 import 'package:upgrade_employ/controller/evaluation_controller.dart';
 import 'package:upgrade_employ/data/model.dart';
 import 'package:upgrade_employ/navigation/app_route.dart';
+import 'package:intl/intl.dart';
 
 class DetailEvaluation extends StatefulWidget {
   const DetailEvaluation({super.key});
@@ -22,41 +23,44 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
   // ignore: prefer_typing_uninitialized_variables
   var departementlist;
   String? departementnom;
-@override
+  int? idDepartement;
+  bool isValid = false;
+  bool isParticipation = false;
+  @override
   void initState() {
     super.initState();
     void first() async {
       await controller.allDepartement(user.token['token']);
       await controller.question(user.token['token']);
+      var detail = Get.arguments['detailEvent'];
+      var response = await controller.verificationParticipation(
+          user.token['token'], detail['id']);
+      if (response[0]['message'] == "Vous n'avez pas participez") {
+        isParticipation = true;
+      }
     }
 
     first();
-
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    // print('*-**-*--*-*-*-*--*-*-********');
-    // print(departementModel.donnees);
-    
     var detail = Get.arguments['detailEvent'];
     var id = Get.arguments['id'];
 
-    if (id == 1){
+    if (id == 1) {
       for (departementlist in departementModel.donnees) {
-      if (departementlist['id'] == detail['departement'] ) {
-       departementnom =  departementlist['nomDepartement'];
-
+        if (departementlist['id'] == detail['departement']) {
+          departementnom = departementlist['nomDepartement'];
+        }
+      }
+    } else {
+      for (departementlist in departementModel.donnees) {
+        if (departementlist['id'] == detail['departement']) {
+          departementnom = departementlist['nomDepartement'];
+        }
       }
     }
-    }else{ 
-    for (departementlist in departementModel.donnees) {
-      if (departementlist['id'] == detail['departement'] ) {
-       departementnom =  departementlist['nomDepartement'];
-
-      }
-    }}
     final TextEditingController nomEvaluationController =
         TextEditingController(text: "${detail['nom']}");
     final TextEditingController dateDebutController =
@@ -69,6 +73,31 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
         TextEditingController(text: "${detail['heureFin']}");
     final TextEditingController departementController =
         TextEditingController(text: "$departementnom");
+
+    DateTime now = DateTime.now();
+    String dateNow = DateFormat('dd/M/yyyy').format(DateTime.now());
+    String heure = "${now.hour}:${now.minute}";
+    List<String> parts = heure.split(':');
+    int hour = int.parse(parts[0]);
+    int minute = int.parse(parts[1]);
+    TimeOfDay heureActuelle = TimeOfDay(hour: hour, minute: minute);
+    TimeOfDay heureDebut = TimeOfDay(
+        hour: int.parse(detail['heureDebut'].split(':')[0]),
+        minute: int.parse(detail['heureDebut'].split(':')[1]));
+    TimeOfDay heureFin = TimeOfDay(
+        hour: int.parse(detail['heureFin'].split(':')[0]),
+        minute: int.parse(detail['heureFin'].split(':')[1]));
+
+    if ((heureActuelle.hour > heureDebut.hour ||
+            (heureActuelle.hour == heureDebut.hour &&
+                heureActuelle.minute >= heureDebut.minute)) &&
+        (heureActuelle.hour < heureFin.hour ||
+            (heureActuelle.hour == heureFin.hour &&
+                heureActuelle.minute <= heureFin.minute))) {
+      isValid = true;
+    } else {
+      print("fermer");
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -219,7 +248,6 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                       height: 5,
                     ),
                     SizedBox(
-                      // color: Colors.red,
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: FormWidgetSansIcon(
                         placeholder: '10:30',
@@ -257,13 +285,20 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
             const SizedBox(
               height: 15,
             ),
-            ButtonWidget(
-              text: "Commencer",
-              onPressed: () {
-                Get.offNamed(AppRoute.question);
-              },
-
-            ),
+            id == 1 &&
+                    dateNow == dateDebutController.text &&
+                    isValid &&
+                    isParticipation
+                ? ButtonWidget(
+                    text: "Commencer",
+                    onPressed: () {
+                      Get.offNamed(AppRoute.question, arguments: {
+                        "id_event": detail['id'],
+                        "id_departement": departementlist['id']
+                      });
+                    },
+                  )
+                : const SizedBox(),
           ],
         ),
       ),

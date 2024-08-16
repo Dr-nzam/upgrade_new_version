@@ -49,23 +49,42 @@ class EvaluationServiceProvider extends GetxController {
     return response;
   }
 
-
-Future<Response> questionGet(String token) async {
+  Future<Response> questionGet(String token) async {
     final response = await getConnect
         .get('${Constante.apiPath}evaluation/generer-question/', headers: {
       'Authorization': 'Token $token',
     });
     return response;
   }
-  
+
   Future<Response> validationReponsePost(
       Map<String, dynamic> data, String token) async {
     final response = await getConnect.post(
-        '${Constante.apiPath}/evaluation/valider-question/',
+        '${Constante.apiPath}evaluation/valider-question/',
         headers: {
           'Authorization': 'Token $token',
         },
         data);
+    return response;
+  }
+
+  Future<Response> participeEvaluationPost(
+      Map<String, dynamic> data, String token) async {
+    final response = await getConnect.post(
+        '${Constante.apiPath}evaluation/participer-evaluation/',
+        headers: {
+          'Authorization': 'Token $token',
+        },
+        data);
+    return response;
+  }
+
+  Future<Response> VerificationParticipation(String token, int idEvent) async {
+    final response = await getConnect.get(
+        '${Constante.apiPath}evaluation/verification-participation/$idEvent/',
+        headers: {
+          'Authorization': 'Token $token',
+        });
     return response;
   }
 }
