@@ -40,7 +40,8 @@ class _ListeUtilisateurState extends State<ListeUtilisateur> {
           ),
         ),
       ),
-      body:  Obx(()=> RefreshIndicator(
+      body: Obx(
+        () => RefreshIndicator(
           onRefresh: () async {
             await controller.listUser(user.token['token']);
           },
@@ -49,14 +50,14 @@ class _ListeUtilisateurState extends State<ListeUtilisateur> {
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
                 child: FormWidgetSansIcon(
-                   callback: (search) {
-                setState(() {
-                  seachValeur = search;
-                  controller.listUser(user.token['token'], search: search);
-                  // RechercheEvent(seach);
-                });
-              },  
-                controller: searchController,
+                  callback: (search) {
+                    setState(() {
+                      seachValeur = search;
+                      controller.listUser(user.token['token'], search: search);
+                      // RechercheEvent(seach);
+                    });
+                  },
+                  controller: searchController,
                   prefixicon: const Icon(
                     Icons.search,
                     size: 35,
@@ -73,12 +74,14 @@ class _ListeUtilisateurState extends State<ListeUtilisateur> {
                   itemCount: user.listUser[0].length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 15.0, right: 15, top: 10),
+                      padding:
+                          const EdgeInsets.only(left: 15.0, right: 15, top: 10),
                       child: ListeNomWidget(
-                        nom: "${user.listUser[0][index]["last_name"]}",
+                        nom: "${user.listUser[0][index]["first_name"]} ${user.listUser[0][index]["last_name"]}",
                         departement: "HSE",
-                        note: 18,
-                        onPressed: () => Get.toNamed(AppRoute.detailUtilisateur),
+                        // note: 18,
+                        onPressed: () => Get.toNamed(AppRoute.detailUtilisateur,
+                            arguments: {"user": user.listUser[0][index]}),
                       ),
                     );
                   },

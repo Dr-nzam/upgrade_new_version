@@ -180,7 +180,7 @@ class EvaluationController extends GetxController {
         return response;
       } else {
         // print(response.body);
-        messageObs.value = response.body["message"];
+        // messageObs.value = response.body["message"];
         loading.value = false;
         return response;
       }
@@ -215,4 +215,44 @@ class EvaluationController extends GetxController {
       ];
     }
   }
+
+  Future<List<dynamic>> suivisUsers(String token) async {
+    loading.value = true;
+    //  final HomeProvider provider = HomeProvider();
+    var response = await _provider.suivisEvaluation(token);
+    print('*********************************');
+    print(response.body);
+    if (!response.status.hasError) {
+      statistiqueModel.suivis.value = response.body;
+      loading.value = false;
+      return response.body;
+    } else {
+      // messageObs.value = response.body['message'];
+      loading.value = true;
+      return [
+        {"message": "Error request"}
+      ];
+    }
+  }
+
+  Future<List<dynamic>> generaleSuivis(String token, int idUser) async {
+    loading.value = true;
+    //  final HomeProvider provider = HomeProvider();
+    var response = await _provider.generaleSuivis(token, idUser);
+    print('*********************************');
+    print(response.body);
+    if (!response.status.hasError) {
+      statistiqueModel.suivisGenerale.value = response.body;
+      loading.value = false;
+      return response.body;
+    } else {
+      // messageObs.value = response.body['message'];
+      loading.value = true;
+      return [
+        {"message": "Error request"}
+      ];
+    }
+  }
+  
+
 }

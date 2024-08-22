@@ -35,8 +35,10 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
       var detail = Get.arguments['detailEvent'];
       var response = await controller.verificationParticipation(
           user.token['token'], detail['id']);
-      if (response[0]['message'] == "Vous n'avez pas participez") {
-        isParticipation = true;
+      if (response[0]['message'] == "Vous avez deja participez") {
+        setState(() {
+          isParticipation = true;
+        });
       }
     }
 
@@ -52,12 +54,14 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
       for (departementlist in departementModel.donnees) {
         if (departementlist['id'] == detail['departement']) {
           departementnom = departementlist['nomDepartement'];
+          idDepartement  = departementlist['id'];
         }
       }
     } else {
       for (departementlist in departementModel.donnees) {
         if (departementlist['id'] == detail['departement']) {
           departementnom = departementlist['nomDepartement'];
+          idDepartement  = departementlist['id'];
         }
       }
     }
@@ -98,6 +102,9 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
     } else {
       print("fermer");
     }
+    print('=======================================');
+    print(departementlist['id']);
+    print('=======================================');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -288,7 +295,7 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
             id == 1 &&
                     dateNow == dateDebutController.text &&
                     isValid &&
-                    isParticipation
+                    isParticipation == false
                 ? ButtonWidget(
                     text: "Commencer",
                     onPressed: () {
@@ -298,7 +305,17 @@ class _DetailEvaluationState extends State<DetailEvaluation> {
                       });
                     },
                   )
-                : const SizedBox(),
+                :
+                // const SizedBox(),
+                isParticipation
+                    ? const ButtonWidget(
+                        text: "Vous avez deja ete evaluer",
+                        colorButton: Colors.red,
+                      )
+                    : const ButtonWidget(
+                        text: "Fermer",
+                        colorButton: Colors.red,
+                      ),
           ],
         ),
       ),

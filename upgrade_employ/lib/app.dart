@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     Get.put(DepartementModel());
     Get.put(StatistiqueModel());
     return  GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: AppRoute.splash,
       getPages: AppPage.page,
 

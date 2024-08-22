@@ -87,4 +87,20 @@ class EvaluationServiceProvider extends GetxController {
         });
     return response;
   }
+
+Future<Response> suivisEvaluation(String token) async {
+    final response = await getConnect
+        .get('${Constante.apiPath}evaluation/suivis/', headers: {
+      'Authorization': 'Token $token',
+    });
+    return response;
+  }
+
+  Future<Response> generaleSuivis(String token, int pk) async {
+    final response = await getConnect
+        .get('${Constante.apiPath}evaluation/generale-suivis/$pk/', headers: {
+      'Authorization': 'Token $token',
+    });
+    return response;
+  }
 }

@@ -23,8 +23,10 @@ class _ProchaineEvaluationState extends State<ProchaineEvaluation> {
     void first() async {
       await controller.evaluationFuture(user.token['token']);
     }
-
-    first();
+    setState(() {
+      first();
+    });
+    
   }
 
   @override
